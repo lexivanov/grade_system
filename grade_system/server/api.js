@@ -1,3 +1,33 @@
+const action = {
+    user: {
+        getAll: () => {},
+        getAllByCourse: (courseId) => {},
+        get: (id) => {},
+        post: (id, fio, course, role) => {},
+        delete: (id) => {},
+        giveGrade: (userID, taskId, grade) => {},
+        getAllGrades: (userID) => {},
+        setStatus: (userID, status) => {},
+        getStatus: (userID) => {},
+        setComment: (userID, comment) => {},
+        getComment: (userID) => {},
+        setDestination: (userID, destination) => {},
+        getDestination: (userID) => {},
+        setRole: (id, role) => {},
+        setCourse: (id, course) => {}
+    },
+    tasks: {
+        get: (id) => {},
+        post: (id, title, description) => {}, //file?
+        delete: (id) => {},
+    },
+    course: {
+        post: () => {},
+        getCourse: (id) => {},
+        delete: (id) => {}
+    }
+}
+
 let curId = 4;
 const products = [
     {
