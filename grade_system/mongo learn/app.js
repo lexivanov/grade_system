@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const statusController = require("./controllers/status-controller");
+const courseController = require("./controllers/course-controller");
 
 const app = express();
 
@@ -15,6 +16,14 @@ app.use(function (req, res, next) {
 });
 
 app.use(bodyParser.json());
+
+router.route('/course')
+    .get(courseController.getAll)
+    .post(courseController.addOrEdit)
+
+router.route('/course/:id')
+    .get(courseController.getById)
+    .delete(courseController.remove)
 
 router.route('/status')
     .get(statusController.getAll)

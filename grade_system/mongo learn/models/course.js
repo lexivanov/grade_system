@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  courseName: { type: String, required: true },
-  courseDescription: { type: String }
+  name: { type: String, required: true },
+  description: { type: String }
 });
 
 schema.set("toJSON", { virtuals: true });
