@@ -5,7 +5,7 @@ const schema = new Schema({
   userFullName: { type: String, required: true },
   userRole: { type: String, default: "student" },
   courseId: { type: Schema.Types.ObjectId, ref: "Course" },
-  userComment: { type: String },
+  commentId: { type: Schema.Types.ObjectId, ref: "Comment" },
   statusId: { type: Schema.Types.ObjectId, ref: "Status" },
   userProject: { type: String }
 });

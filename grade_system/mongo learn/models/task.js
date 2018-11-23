@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-  taskName: { type: String, required: true },
-  taskDescription: { type: String, required: true },
-  taskFilePath: { type: String }
+  name: { type: String, required: true },
+  description: { type: String, required: true },
+  filePath: { type: String }
 });
 
 schema.set("toJSON", { virtuals: true });

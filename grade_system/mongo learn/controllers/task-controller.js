@@ -1,33 +1,34 @@
 const mongoose = require("mongoose");
-const Course = require("../models/course");
-const taskCourseRelation = require("../models/taskcourserelation");
+const Task = require("../models/task");
 
 exports.getAll = (req, res) => {
   console.log(req);
-  Course.find({})
+  Task.find({})
     .then(result => res.json(result))
     .catch(rej => console.log(rej));
 };
 
 exports.getById = (req, res) => {
   console.log(req);
-  Course.find({ _id: req.params.id })
+  Task.find({ _id: req.params.id })
     .then(result => res.status(200).json(result))
     .catch(rej => console.log(rej));
 };
 
 exports.addOrEdit = (req, result) => {
   console.log(req.body);
-  const newCourse = req.body;
-  if (newCourse.id === undefined) {
-    Course.create(newCourse)
+  const newTask = req.body;
+  if (newTask.id === undefined) {
+    Task.create(newTask)
       .then(res => result.json(res))
       .catch(rej => result.status(404).send("idi nahuy"));
   } else {
-    if (newCourse.name === undefined) {
+    if (newTask.name === undefined) {
       result.status(400).send("name is required");
+    } else if (newTask.description === undefined) {
+      result.status(400).send("description is required");
     } else {
-      Course.replaceOne({ _id: newCourse.id }, newCourse)
+      Task.replaceOne({ _id: newTask.id }, newTask)
         .then(res => result.json(res))
         .catch(rej => result.status(404).send("idi nahuy"));
     }
@@ -36,7 +37,7 @@ exports.addOrEdit = (req, result) => {
 
 exports.remove = (req, res) => {
   console.log(req);
-  Course.deleteOne({ _id: req.params.id })
+  Task.deleteOne({ _id: req.params.id })
     .then(good => res.status(200).json({ id: req.params.id }))
     .catch(rej => res.status(400).send("idi nahuy"));
 };
