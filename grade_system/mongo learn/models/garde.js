@@ -8,4 +8,4 @@ const schema = new Schema({
 });
 
 schema.set("toJSON", { virtuals: true });
-module.exports = mongoose.model("Mark", schema);
+module.exports = mongoose.model("Grade", schema);

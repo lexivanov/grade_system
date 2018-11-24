@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Task = require("../models/task");
+const taskCourseRelation = require("../models/taskcourserelation");
+const Grade = require("../models/garde");
 
 exports.getAll = (req, res) => {
   console.log(req);
@@ -15,29 +17,38 @@ exports.getById = (req, res) => {
     .catch(rej => console.log(rej));
 };
 
-exports.addOrEdit = (req, result) => {
+exports.addOrEdit = (req, res) => {
   console.log(req.body);
   const newTask = req.body;
   if (newTask.id === undefined) {
     Task.create(newTask)
-      .then(res => result.json(res))
-      .catch(rej => result.status(404).send("idi nahuy"));
+      .then(result => res.status(200).json(result))
+      .catch(rej => res.status(404).json(rej.message));
   } else {
     if (newTask.name === undefined) {
-      result.status(400).send("name is required");
+      res.status(400).send("Tame is required");
     } else if (newTask.description === undefined) {
-      result.status(400).send("description is required");
+      res.status(400).send("Description is required");
     } else {
       Task.replaceOne({ _id: newTask.id }, newTask)
-        .then(res => result.json(res))
-        .catch(rej => result.status(404).send("idi nahuy"));
+        .then(result => res.status(200).json(result))
+        .catch(rej => res.status(404).json(rej.message));
     }
   }
 };
 
-exports.remove = (req, res) => {
-  console.log(req);
-  Task.deleteOne({ _id: req.params.id })
-    .then(good => res.status(200).json({ id: req.params.id }))
-    .catch(rej => res.status(400).send("idi nahuy"));
+exports.remove = async (req, res) => {
+  const deletedCTR = await taskCourseRelation.deleteMany({
+    taskId: req.params.id
+  });
+  const deletedGrade = await Grade.deleteMany({
+    taskId: req.params.id
+  });
+  if (deletedCTR.ok && deletedGrade.ok) {
+    Task.deleteOne({ _id: req.params.id })
+      .then(result => res.status(200).json(result))
+      .catch(rej => res.status(400).json(rej.message));
+  } else {
+    res.status(400).send("Course-task relations or grades didn't deleted!");
+  }
 };

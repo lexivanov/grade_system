@@ -1,20 +1,26 @@
 const mongoose = require("mongoose");
 const taskCourseRelation = require("../models/taskcourserelation");
 
-exports.addTaskToCourse = (req, result) => {
+exports.addTaskToCourse = (req, res) => {
   console.log(req.body);
   const newTaskCourseRelation = req.body;
   console.log(newTaskCourseRelation);
   if (newTaskCourseRelation.courseId === undefined) {
-    result.status(400).send("course id is required");
+    res.status(400).send("course id is required");
   } else if (newTaskCourseRelation.taskId === undefined) {
-    result.status(400).send("task id is required");
+    res.status(400).send("task id is required");
   } else {
     taskCourseRelation
       .create(newTaskCourseRelation)
-      .then(res => result.json(res))
-      .catch(rej => result.status(404).send("idi nahuy"));
+      .then(result => res.json(result))
+      .catch(rej => res.status(404).json(rej.message));
   }
+};
+
+exports.getAll = async (req, res) => {
+  console.log(req);
+  const result = await taskCourseRelation.find({});
+  res.json(result);
 };
 
 exports.getCourseTasks = (req, res) => {
@@ -30,13 +36,13 @@ exports.remove = (req, res) => {
   const newTaskCourseRelation = req.body;
   console.log(newTaskCourseRelation);
   if (newTaskCourseRelation.courseId === undefined) {
-    res.status(400).send("course id is required");
+    res.status(400).send("Course id is required");
   } else if (newTaskCourseRelation.taskId === undefined) {
-    res.status(400).send("task id is required");
+    res.status(400).send("Task id is required");
   } else {
     taskCourseRelation
       .deleteOne(newTaskCourseRelation)
-      .then(good => res.status(200).json({newTaskCourseRelation}))
-      .catch(rej => res.status(400).send("idi nahuy"));
+      .then(result => res.status(200).json(result))
+      .catch(rej => res.status(400).json(rej.message));
   }
 };

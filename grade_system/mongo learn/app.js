@@ -3,7 +3,8 @@ const bodyParser = require("body-parser");
 const statusController = require("./controllers/status-controller");
 const courseController = require("./controllers/course-controller");
 const taskController = require("./controllers/task-controller");
-const courseTaskRelations = require("./controllers/taskcourserelation-controller")
+const CTRController = require("./controllers/taskcourserelation-controller");
+const userController = require("./controllers/user-controller");
 
 const app = express();
 
@@ -25,6 +26,24 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json());
 
 router
+  .route("/user")
+  .get(userController.getAll)
+  .post(userController.addOrEdit);
+
+router
+  .route("/user/:id")
+  .get(userController.getById)
+  .delete(userController.remove);
+
+router
+  .route("/user-grade")
+  .post(userController.setGrade);
+
+router
+  .route("/user-grade/:id")
+  .get(userController.getUserGrades);
+
+router
   .route("/course")
   .get(courseController.getAll)
   .post(courseController.addOrEdit);
@@ -36,13 +55,12 @@ router
 
 router
   .route("/coursetaskrelations")
-  .get(courseTaskRelations.addTaskToCourse)
-  .delete(courseTaskRelations.remove);
+  .get(CTRController.getAll)
+  .post(CTRController.addTaskToCourse)
+  .delete(CTRController.remove);
 
-router
-    .route("/coursetaskrelations/:id")
-    .get(courseTaskRelations.getCourseTasks);
-    
+router.route("/coursetaskrelations/:id").get(CTRController.getCourseTasks);
+
 router
   .route("/status")
   .get(statusController.getAll)
