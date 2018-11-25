@@ -1,0 +1,1 @@
+export { default as CoursePage } from './course-page';

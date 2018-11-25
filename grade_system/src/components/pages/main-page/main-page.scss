@@ -1,0 +1,35 @@
+.main-wrapper {
+    margin: 20px auto 0;
+    padding: 20px;
+    border: solid 1px #000000;
+    border-radius: 5px;
+    width: 80%;
+
+    .link-wrapper {
+        margin: 0 auto;
+        padding: 20px;
+        border: solid 1px #000000;
+        border-top: 0;
+        &:first-child{
+            border-top: solid 1px #000000;
+        }
+        .course-link {
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            text-transform: uppercase;
+            color: #000000;
+            &:hover, &:active{
+                color: #ff0000;
+            }
+        }
+        .course-desc {
+            padding-top: 10px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 600px;
+        }
+    }
+}

@@ -2,7 +2,7 @@ import { actionTypes } from '../constants';
 import { UserController } from '../../../services';
 
 export const fetchUsersList = () => dispatch => {
-    UserController.getAllUsers().then((resolve) => {
+    UserController.getAll().then((resolve) => {
         dispatch(loadUsers(resolve));
     }).catch(() => {});
 };

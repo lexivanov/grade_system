@@ -1,0 +1,33 @@
+.left-side {
+    width: 200px;
+
+    .fake-row {
+        height: 30px;
+        border: 1px solid #000000;
+    }
+
+    .user-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .left-cell {
+        min-height: 30px;
+        border: 1px solid #000000;
+        border-top: 0;
+        border-right: 0;
+        padding: 5px;
+
+        &.average-cell {
+            min-width: 30px;
+            flex-grow: 0;
+            border-right: 1px solid #000000;
+        }
+
+        &.username-cell {
+            flex-grow: 1;
+        }
+    }
+
+}

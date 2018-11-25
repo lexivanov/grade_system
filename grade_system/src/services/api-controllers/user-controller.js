@@ -1,5 +1,5 @@
 export class UserController {
-    static getAllUsers() {
+    static getAll() {
         const promise = new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.open("GET", "http://localhost:3000/api/user", true);
