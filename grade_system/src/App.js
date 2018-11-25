@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { UserController } from './services';
 import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   render() {
+    UserController.getAllUsers().then(users => console.log(users));
     return (
       <div className="App">
         <header className="App-header">
