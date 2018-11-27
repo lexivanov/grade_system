@@ -1,5 +1,5 @@
 .left-side {
-    width: 200px;
+    width: 250px;
 
     .fake-row {
         height: 30px;
@@ -13,20 +13,23 @@
     }
 
     .left-cell {
-        min-height: 30px;
+        height: 30px;
         border: 1px solid #000000;
         border-top: 0;
         border-right: 0;
         padding: 5px;
 
         &.average-cell {
-            min-width: 30px;
+            min-width: 50px;
             flex-grow: 0;
             border-right: 1px solid #000000;
         }
 
         &.username-cell {
             flex-grow: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 

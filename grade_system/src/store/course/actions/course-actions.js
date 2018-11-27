@@ -7,6 +7,12 @@ export const fetchCourseList = () => dispatch => {
     }).catch(() => {});
 };
 
+export const fetchCourseTasks = (id) => dispatch => {
+    CourseController.getTasks(id).then((resolve) => {
+        dispatch(loadCourseTasks(resolve));
+    }).catch(() => {});
+};
+
 export const fetchCourseInfo = (id) => dispatch => {
     CourseController.getAll().then((resolve) => {
         dispatch(loadCourse(resolve));
@@ -15,5 +21,10 @@ export const fetchCourseInfo = (id) => dispatch => {
 
 const loadCourse = (payload) => ({
     type: actionTypes.loadCourses,
+    payload
+});
+
+const loadCourseTasks = (payload) => ({
+    type: actionTypes.loadCourseTasks,
     payload
 });

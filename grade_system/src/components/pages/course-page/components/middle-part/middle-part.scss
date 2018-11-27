@@ -1,0 +1,66 @@
+.middle-side {
+    display: flex;
+    flex-flow: row nowrap;
+    overflow-x: auto;
+    width: 100%;
+    margin: 0;
+
+    .task-column {
+        display: flex;
+        flex-flow: column nowrap;
+        max-width: 100px;
+
+        // &:last-child {
+        //     .middle-cell {
+        //         border-right: 0;
+        //     }
+        // }
+
+        .middle-cell {
+            height: 30px;
+            border: solid #000000 1px;
+            border-left: 0;
+            padding: 5px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            text-decoration: none;
+            color: #4b1b00
+        }
+
+        .task-cell {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding-top: 8px;
+
+            .task-link {
+                text-decoration: none;
+                color: #059bff;
+
+                &:hover {
+                    color: #ff0000;
+                }
+            }
+        }
+
+        .user-grade-cell {
+            border-top: 0;
+            text-align: center;
+            padding-top: 8px;
+        }
+    }
+
+    .fake-column{
+        display: flex;
+        flex-flow: column nowrap;
+        width: 100%;
+        .fake-cell{
+            height: 30px;
+            width: 100%;
+            border-bottom: 1px solid #000000;
+            &:first-child{
+                border-top: 1px solid #000000;
+            }
+        }
+    }
+}

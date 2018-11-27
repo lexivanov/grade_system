@@ -7,7 +7,18 @@ export const fetchUsersList = () => dispatch => {
     }).catch(() => {});
 };
 
+export const fetchUserGrades = (id) => dispatch => {
+    UserController.getGrades(id).then((resolve) => {
+        dispatch(loadUserGrades(resolve));
+    }).catch(() => {});
+};
+
 const loadUsers = (payload) => ({
     type: actionTypes.loadUsers,
+    payload
+});
+
+const loadUserGrades = (payload) => ({
+    type: actionTypes.loadUserGrades,
     payload
 });

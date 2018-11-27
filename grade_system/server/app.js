@@ -59,7 +59,7 @@ router
   .post(CTRController.addTaskToCourse)
   .delete(CTRController.remove);
 
-router.route("/coursetaskrelations/:id").get(CTRController.getCourseTasks);
+router.route("/course-task-relations/:id").get(CTRController.getCourseTasks);
 
 router
   .route("/status")

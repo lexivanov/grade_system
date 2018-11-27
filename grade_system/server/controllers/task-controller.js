@@ -3,14 +3,12 @@ const taskCourseRelation = require("../models/taskcourserelation");
 const Grade = require("../models/grade");
 
 exports.getAll = (req, res) => {
-  console.log(req);
   Task.find({})
     .then(result => res.json(result))
     .catch(rej => console.log(rej));
 };
 
 exports.getById = (req, res) => {
-  console.log(req);
   Task.find({ _id: req.params.id })
     .then(result => res.status(200).json(result))
     .catch(rej => console.log(rej));

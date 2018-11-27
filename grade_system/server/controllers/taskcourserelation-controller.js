@@ -1,6 +1,7 @@
 const taskCourseRelation = require("../models/taskcourserelation");
 const User = require("../models/user");
 const Grade = require("../models/grade");
+const Task = require("../models/task");
 
 exports.addTaskToCourse = (req, res) => {
   console.log(req.body);
@@ -19,16 +20,19 @@ exports.addTaskToCourse = (req, res) => {
 };
 
 exports.getAll = async (req, res) => {
-  console.log(req);
   const result = await taskCourseRelation.find({});
   res.json(result);
 };
 
 exports.getCourseTasks = (req, res) => {
-  console.log(req);
   taskCourseRelation
     .find({ courseId: req.params.id })
-    .then(result => res.json(result))
+    .then(result => {
+      const ids = result.map(item => item.taskId);
+      Task.find({_id: ids})
+      .then(taskArr => res.json(taskArr))
+      .catch(rej => console.log(rej));
+    })
     .catch(rej => console.log(rej));
 };
 

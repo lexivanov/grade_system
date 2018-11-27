@@ -1,0 +1,46 @@
+.right-side {
+    width: 400px;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .right-cell{
+        height: 30px;
+        padding: 5px;
+        border: 1px solid #000000;
+    }
+
+    .right-header-row {
+        display: flex;
+        flex-flow: row nowrap;
+        .status-header{
+            border-right: 0;
+            width: 70px;
+        }
+        .project-header{
+            border-right: 0;
+            width: 100px;
+        }
+        .comment-header{
+            width: 150px;
+        }
+    }
+
+    .right-user-row {
+        display: flex;
+        flex-flow: row nowrap;
+        .user-status {
+            border-top: 0;
+            border-right: 0;
+            width: 70px;
+        }
+        .user-project {
+            border-top: 0;
+            border-right: 0;
+            width: 100px;
+        }
+        .user-comment {
+            border-top: 0;
+            width: 150px;
+        }
+    }
+}

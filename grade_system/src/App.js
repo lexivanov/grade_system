@@ -5,7 +5,6 @@ import './App.css';
 
 class App extends Component {
   render() {
-    UserController.getAllUsers().then(users => console.log(users));
     return (
       <div className="App">
         <header className="App-header">
