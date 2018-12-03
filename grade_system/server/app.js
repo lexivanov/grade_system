@@ -5,6 +5,7 @@ const courseController = require("./controllers/course-controller");
 const taskController = require("./controllers/task-controller");
 const CTRController = require("./controllers/taskcourserelation-controller");
 const userController = require("./controllers/user-controller");
+const courseInfoController = require("./controllers/takeAllForCourse-controller")
 
 const app = express();
 
@@ -52,6 +53,10 @@ router
   .route("/course/:id")
   .get(courseController.getById)
   .delete(courseController.remove);
+
+router
+  .route("/course-info/:id")
+  .get(courseInfoController.GetAllbyId);
 
 router
   .route("/coursetaskrelations")
