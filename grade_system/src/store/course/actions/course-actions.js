@@ -14,8 +14,8 @@ export const fetchCourseTasks = (id) => dispatch => {
 };
 
 export const fetchCourseInfo = (id) => dispatch => {
-    CourseController.getAll().then((resolve) => {
-        dispatch(loadCourse(resolve));
+    CourseController.getCourseInfo(id).then((resolve) => {
+        dispatch(loadCourseInfo(resolve));
     }).catch(() => {});
 };
 
@@ -26,5 +26,10 @@ const loadCourse = (payload) => ({
 
 const loadCourseTasks = (payload) => ({
     type: actionTypes.loadCourseTasks,
+    payload
+});
+
+const loadCourseInfo = (payload) => ({
+    type: actionTypes.loadCourseInfo,
     payload
 });

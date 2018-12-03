@@ -8,36 +8,33 @@ export class MiddlePart extends Component {
     static propTypes = {
         tasks: PropTypes.array,
         users: PropTypes.array,
-        grades: PropTypes.object,
-        // grades: PropTypes.array,
+        grades: PropTypes.array,
     }
+
     render() {
         return (
             <div className='middle-side'>
-                {this.props.tasks.map(task =>
-                    (<div className='task-column' key={task.id}>
+                {this.props.tasks.map(task => {
+                    console.log(task);
+                    return (<div className='task-column' key={task.id}>
                         <div className='task-cell middle-cell'>
                             <a className='task-link' href="./main">{task.name}</a>
                         </div>
                         {this.props.users.map(user => {
                             let color = undefined;
-                            const grade = this.props.grades &&
-                                this.props.grades[user.id] &&
-                                this.props.grades[user.id].find(grade => grade.taskId === task.id) &&
-                                this.props.grades[user.id].find(grade => grade.taskId === task.id).value;
-                            if (grade) { 
-                                color = gradeColors[(''+grade)[0]]; 
+                            const grade = this.props.grades.find(x => x.userId === user.id && x.taskId === task.id);
+                            const gradeValue = grade ? grade.value : undefined;
+                            if (gradeValue) {
+                                color = gradeColors[('' + Math.floor(gradeValue))];
                             };
                             return (
                                 <div className='user-grade-cell middle-cell' style={{ backgroundColor: color }} key={user.id}>
-                                    <span className='grade'>{(this.props.grades &&
-                                        this.props.grades[user.id] &&
-                                        this.props.grades[user.id].find(grade => grade.taskId === task.id) &&
-                                        this.props.grades[user.id].find(grade => grade.taskId === task.id).value) || ''}</span>
+                                    <span className='grade'>{gradeValue || ''}</span>
                                 </div>
                             )
                         })}
-                    </div>))}
+                    </div>)
+                })}
                 <div className='fake-column'>
                     <div className='fake-cell' />
                     {this.props.users.map(user => (

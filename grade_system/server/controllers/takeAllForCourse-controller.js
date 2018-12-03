@@ -18,11 +18,11 @@ exports.GetAllbyId = async (req, res) => {
   
   const relatedCTRIds = relatedCTR.map(x => x.taskId);
   const relatedTasks = await Task.find({ _id: relatedCTRIds });
-  result.tasks.push(relatedTasks);
+  result.tasks = relatedTasks;
 
   const relatedUsersIds = relatedUsers.map(x => x.id);
   const relatedGrades = await Grade.find({ userId: relatedUsersIds });
-  result.grades.push(relatedGrades);        
+  result.grades = relatedGrades;        
 
   res.status(200).json(result);
 };

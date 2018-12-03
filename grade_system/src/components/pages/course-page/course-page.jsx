@@ -1,32 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { LeftSide, MiddlePart, RightSide } from './components';
-import { fetchCourseTasks } from '../../../store/course';
+import { fetchCourseInfo } from '../../../store/course';
 
 import './course-page.scss';
-import { fetchUserGrades } from '../../../store/user/actions/user-actions';
-
 class CoursePage extends Component {
 
     flag = true;
     componentDidMount() {
-        this.props.getTasks(idResolver(window.location.pathname));
-    }
-
-    componentDidUpdate() {
-        if(this.flag && this.props.users){
-            this.flag = false;
-            const users = this.props.users.filter(user => user.courseId === idResolver(window.location.pathname));
-            users.forEach(user => {
-                this.props.getGrades(user.id);
-            })
-        }
+        this.props.getInfo(idResolver(window.location.pathname));
     }
 
     render() {
-        return (
+        return this.props.users ? (
             <div className='course-wrapper'>
-                <LeftSide users={this.props.users.filter(user => user.courseId === idResolver(window.location.pathname))}
+                <LeftSide
+                    grades={this.props.grades}
+                    users={this.props.users.filter(user => user.courseId === idResolver(window.location.pathname))}
                 />
                 <MiddlePart
                     tasks={this.props.tasks}
@@ -35,7 +25,7 @@ class CoursePage extends Component {
                 <RightSide users={this.props.users.filter(user => user.courseId === idResolver(window.location.pathname))}
                 />
             </div>
-        );
+        ) : <div className='course-wrapper' />;
     }
 }
 
@@ -46,13 +36,12 @@ const idResolver = (pathName) => {
 
 export default connect(
     (state, ownProps) => ({
-        users: state.userReducer.userList,
-        tasks: state.courseReducer.currentTasks,
-        grades: state.userReducer.currentGrades,
+        users: state.courseReducer.currentCourseInfo.users,
+        tasks: state.courseReducer.currentCourseInfo.tasks,
+        grades: state.courseReducer.currentCourseInfo.grades,
         ownProps
     }),
     dispatch => ({
-        getTasks: (id) => dispatch(fetchCourseTasks(id)),
-        getGrades: (id) => dispatch(fetchUserGrades(id)),
+        getInfo: (id) => dispatch(fetchCourseInfo(id)),
     })
 )(CoursePage);
