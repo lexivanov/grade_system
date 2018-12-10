@@ -17,6 +17,25 @@ export const courseReducer = function (state = {
         case actionTypes.loadCourseInfo: {
             return { ...state, currentCourseInfo: payload };
         }
+        case actionTypes.setGrade: {
+            const courseInfo = {...state.currentCourseInfo};
+            const index = courseInfo.grades.findIndex(item => item.taskId === payload.taskId && item.userId === payload.userId);
+            if (index === -1) {
+                courseInfo.grades.push(payload);
+            } else {
+                if (payload.value === null){
+                    courseInfo.grades.splice(index, 1);
+                } else {
+                    courseInfo.grades[index].value = payload.value || null;
+                }
+            }
+            return { ...state, currentCourseInfo: {...courseInfo} };
+        }
+        case actionTypes.addNewUser: {
+            const courseInfo = {...state.currentCourseInfo};
+            courseInfo.users.push(payload);
+            return { ...state, courseInfo: payload };
+        }
         default: {
             return { ...state };
         }

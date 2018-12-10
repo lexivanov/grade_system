@@ -12,8 +12,9 @@ module.exports = () => {
       .once("open", () => resolve(mongoose.connections[0]));
 
     mongoose.connect(
-      config.MONGO_URL,
-      { useMongoClient: true }
+      config.MONGO_URL, {
+        useNewUrlParser: true
+      }
     );
   });
 };

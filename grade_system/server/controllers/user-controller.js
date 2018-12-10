@@ -47,14 +47,19 @@ exports.getUserGrades = async (req, res) => {
 exports.setGrade = async (req, res) => {
   const newGrade = req.body;
   const potentialGrade = await Grade.find({ userId: newGrade.userId, taskId: newGrade.taskId });
-  console.log(potentialGrade);
   if (potentialGrade.length === 0) {
     Grade.create(newGrade)
       .then(result => res.status(200).json(result))
       .catch(rej => res.status(400).json(rej.message));
   } else {
+    if(newGrade.value === null) {
+      Grade.deleteOne({ userId: newGrade.userId, taskId: newGrade.taskId })
+      .then(result => res.status(200).json(newGrade))
+      .catch(rej => res.status(400).json(rej.message));
+    } else {
     Grade.updateOne({ userId: newGrade.userId, taskId: newGrade.taskId }, newGrade)
       .then(result => res.status(200).json(result))
       .catch(rej => res.status(400).json(rej.message));
+    }
   }
 };

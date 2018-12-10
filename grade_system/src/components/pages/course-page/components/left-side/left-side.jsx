@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { gradeColors } from '../../../../../constants';
 
 import './left-side.scss';
 
-export class LeftSide extends Component {
+class LeftSide extends Component {
     static propTypes = {
         users: PropTypes.array,
         grades: PropTypes.array,
+        averages: PropTypes.object
     }
-    render() {
 
+    render() {
         return (
             <div className='left-side'>
                 <div className='fake-row'>
@@ -24,7 +26,7 @@ export class LeftSide extends Component {
                         grades.forEach(item => {
                             average += item.value;
                         });
-                        average /= grades.length;
+                        average /= grades.filter(x => !!x.value).length;
                         color = gradeColors[('' + Math.floor(average))];
                     }
                     return (
@@ -41,4 +43,18 @@ export class LeftSide extends Component {
             </div>
         );
     }
+}
+
+
+export default connect(
+    (state, ownProps) => ({
+        users: state.courseReducer.currentCourseInfo.users && state.courseReducer.currentCourseInfo.users.filter(user => user.courseId === idResolver(window.location.pathname)),
+        grades: state.courseReducer.currentCourseInfo.grades,
+        ownProps
+    })
+)(LeftSide);
+
+const idResolver = (pathName) => {
+    const parts = pathName.split('/');
+    return parts[parts.length - 1];
 }

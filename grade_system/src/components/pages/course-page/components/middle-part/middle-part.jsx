@@ -3,19 +3,20 @@ import { PropTypes } from 'prop-types';
 import { gradeColors } from '../../../../../constants';
 
 import './middle-part.scss';
+import { NumberCell } from '../numberCell/number-cell';
 
 export class MiddlePart extends Component {
     static propTypes = {
         tasks: PropTypes.array,
         users: PropTypes.array,
         grades: PropTypes.array,
+        onChangeGrade: PropTypes.func
     }
 
     render() {
         return (
             <div className='middle-side'>
                 {this.props.tasks.map(task => {
-                    console.log(task);
                     return (<div className='task-column' key={task.id}>
                         <div className='task-cell middle-cell'>
                             <a className='task-link' href="./main">{task.name}</a>
@@ -28,9 +29,12 @@ export class MiddlePart extends Component {
                                 color = gradeColors[('' + Math.floor(gradeValue))];
                             };
                             return (
-                                <div className='user-grade-cell middle-cell' style={{ backgroundColor: color }} key={user.id}>
-                                    <span className='grade'>{gradeValue || ''}</span>
-                                </div>
+                                <NumberCell
+                                    key={user.id}
+                                    className='user-grade-cell middle-cell'
+                                    style={{ backgroundColor: color }}
+                                    value={gradeValue}
+                                    onChange={(value) => this.props.onChangeGrade(user.id, task.id, value)} />
                             )
                         })}
                     </div>)

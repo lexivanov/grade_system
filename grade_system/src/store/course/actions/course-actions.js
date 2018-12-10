@@ -1,5 +1,10 @@
-import { actionTypes } from '../constants';
-import { CourseController } from '../../../services';
+import {
+    actionTypes
+} from '../constants';
+import {
+    CourseController,
+    UserController
+} from '../../../services';
 
 export const fetchCourseList = () => dispatch => {
     CourseController.getAll().then((resolve) => {
@@ -19,6 +24,26 @@ export const fetchCourseInfo = (id) => dispatch => {
     }).catch(() => {});
 };
 
+export const setGrade = (userId, taskId, value) => dispatch => {
+    UserController.setGrade({
+        userId,
+        taskId,
+        value
+    }).then((resolve) => {
+        dispatch(setGradeAction({
+            userId,
+            taskId,
+            value
+        }));
+    }).catch(() => {});
+};
+
+export const addNewUser = (newUser) => dispatch => {
+    UserController.addEditUser(newUser).then((resolve) => {
+        dispatch(addNewUserAction(resolve));
+    }).catch(() => {});
+};
+
 const loadCourse = (payload) => ({
     type: actionTypes.loadCourses,
     payload
@@ -31,5 +56,15 @@ const loadCourseTasks = (payload) => ({
 
 const loadCourseInfo = (payload) => ({
     type: actionTypes.loadCourseInfo,
+    payload
+});
+
+const setGradeAction = (payload) => ({
+    type: actionTypes.setGrade,
+    payload
+});
+
+const addNewUserAction = (payload) => ({
+    type: actionTypes.addNewUser,
     payload
 });
