@@ -1,0 +1,34 @@
+.drop-down {
+    width: 200px;
+    z-index: 5;
+    .drop-down-input {
+        width: 100%;
+        &:disabled{
+            background: #ffffff;
+            color: #000000;
+        }
+    }
+
+    .drop-down-content {
+        width: 200px;
+        height: 120px;
+        overflow: auto;
+        background: #ffffff;
+        border: 1px solid #6b6b6b;
+        margin-left: -1px;
+        .drop-down-item {
+            display: block;
+            width: 198px;
+            height: 30px;
+            background: #ffffff;
+            border: 0;
+            outline: 0;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            word-wrap: none;
+            &:hover{
+                background: #bbfffc;
+            }
+        }
+    }
+}

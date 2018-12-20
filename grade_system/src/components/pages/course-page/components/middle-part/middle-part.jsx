@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { gradeColors } from '../../../../../constants';
 
 import './middle-part.scss';
-import { NumberCell } from '../numberCell/number-cell';
+import { NumberCell } from '../number-cell/number-cell';
 
 export class MiddlePart extends Component {
     static propTypes = {

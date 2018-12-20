@@ -4,9 +4,31 @@
     flex-flow: column nowrap;
 
     .right-cell{
+        position: relative;
         height: 30px;
         padding: 5px;
         border: 1px solid #000000;
+        .drop-down-input{
+            height: 30px;
+            width: 200px;
+            outline: 0;
+            border: 1px solid #000000;
+            border-bottom: 0;
+            margin: -1px 0 0 -1px;
+            padding: 0px 5px;
+            font-family: "Times New Roman";
+            font-size: 16px;
+        }
+        span{
+            display: block;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+
+    .user-status{
+        position: relative;
     }
 
     .right-header-row {
@@ -25,6 +47,19 @@
         }
     }
 
+    textarea{
+        background:#ffffff;
+        position: relative;
+        top: -6px;
+        left: -6px;
+        outline: 0;
+        border: 1px solid black;
+        z-index: 3;
+        font-size: 16px;
+        font-family: 'Times New Roman', Times, serif;
+        padding: 4px 5px;
+    }
+
     .right-user-row {
         display: flex;
         flex-flow: row nowrap;
@@ -37,10 +72,17 @@
             border-top: 0;
             border-right: 0;
             width: 100px;
+            span{
+                width: 90px;
+            }
         }
         .user-comment {
             border-top: 0;
             width: 150px;
+            span{
+                width: 140px;
+            }
+
         }
     }
 }

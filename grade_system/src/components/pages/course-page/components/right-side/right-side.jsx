@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import { DropDownCell } from '../drop-down-cell';
+import { TextCell } from '../text-cell';
 
 import './right-side.scss';
 
 export class RightSide extends Component {
     static propTypes = {
         users: PropTypes.array,
+        statuses: PropTypes.array,
+        onChangeStatus: PropTypes.func,
+        onChangeProject: PropTypes.func,
+        onChangeComment: PropTypes.func,
     }
+
+    state = { selectedStatuses: {} }
+
+
     render() {
         return (
             <div className='right-side'>
@@ -17,9 +27,9 @@ export class RightSide extends Component {
                 </div>
                 {this.props.users.map(user =>
                     (<div className='right-user-row' key={user.id}>
-                        <div className='user-status right-cell'>{user.statusId || ''}</div>
-                        <div className='user-project right-cell'>{user.project || ''}</div>
-                        <div className='user-comment right-cell'>{user.comment || ''}</div>
+                        <DropDownCell className='user-status right-cell' user={user} value={user.statusId ? this.props.statuses.find(x => x.id === user.statusId) : null} onChange={this.props.onChangeStatus} items={this.props.statuses}/>
+                        <TextCell className='user-project right-cell' value={user.project || ''} onChange={(value) => this.props.onChangeProject(user.id, value)}/>
+                        <TextCell className='user-comment right-cell' value={user.comment || ''} onChange={(value) => this.props.onChangeComment(user.id, value)}/>
                     </div>))}
             </div>
         );

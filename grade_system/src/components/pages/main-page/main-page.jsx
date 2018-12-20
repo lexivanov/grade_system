@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { LinkWithText } from '../../buttons';
+import { Link, withRouter } from 'react-router-dom';
 import { fetchCourseList } from '../../../store/course';
 
 import './main-page.scss';
@@ -15,11 +15,7 @@ class MainPage extends Component {
             <div className='main-wrapper'>
                 {this.props.courses.map(course => (
                     <div key={course.id} className='link-wrapper'>
-                        <LinkWithText
-                            href={`/course/${course.id}`}
-                            className='course-link'
-                            text={course.name}
-                        />
+                        <Link to={`/course/${course.id}`} className='course-link'>{course.name}</Link>
                         <p className='course-desc'>{course.description}</p>
                     </div>
                 ))}
@@ -28,7 +24,7 @@ class MainPage extends Component {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     (state, ownProps) => ({
         courses: state.courseReducer.courses,
         ownProps
@@ -36,4 +32,4 @@ export default connect(
     dispatch => ({
         getCourses: () => dispatch(fetchCourseList()),
     })
-)(MainPage);
+)(MainPage));

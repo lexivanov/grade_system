@@ -31,10 +31,15 @@ export const courseReducer = function (state = {
             }
             return { ...state, currentCourseInfo: {...courseInfo} };
         }
-        case actionTypes.addNewUser: {
+        case actionTypes.addOrEditUser: {
             const courseInfo = {...state.currentCourseInfo};
-            courseInfo.users.push(payload);
-            return { ...state, courseInfo: payload };
+            const index = payload.id ? courseInfo.users.findIndex(x => x.id === payload.id) : -1;
+            if (index < 0) {
+                courseInfo.users.push(payload);
+            } else {
+                courseInfo.users.splice(index, 1, payload);
+            }
+            return { ...state, currentCourseInfo: courseInfo };
         }
         default: {
             return { ...state };

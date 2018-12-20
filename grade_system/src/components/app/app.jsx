@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { fetchUsersList } from '../../store/user/actions'
 
@@ -25,11 +26,11 @@ class App extends Component {
     }
 }
 
-export default connect(
+export default withRouter(connect(
     state => ({
         store: state
     }),
     dispatch => ({
         getUsers: () => dispatch(fetchUsersList()),
     })
-)(App);
+)(App));
