@@ -4,15 +4,16 @@
     flex-flow: column nowrap;
 
     .right-cell{
+        font-family: 'Times New Roman', Times, serif;
         position: relative;
         height: 30px;
         padding: 5px;
-        border: 1px solid #000000;
+        border: 1px solid #828486;
         .drop-down-input{
             height: 30px;
             width: 200px;
             outline: 0;
-            border: 1px solid #000000;
+            border: 1px solid #828486;
             border-bottom: 0;
             margin: -1px 0 0 -1px;
             padding: 0px 5px;
@@ -37,13 +38,16 @@
         .status-header{
             border-right: 0;
             width: 70px;
+            font-family: 'Oswald';
         }
         .project-header{
             border-right: 0;
             width: 100px;
+            font-family: 'Oswald';
         }
         .comment-header{
             width: 150px;
+            font-family: 'Oswald';
         }
     }
 
@@ -53,7 +57,7 @@
         top: -6px;
         left: -6px;
         outline: 0;
-        border: 1px solid black;
+        border: 1px solid #828486;
         z-index: 3;
         font-size: 16px;
         font-family: 'Times New Roman', Times, serif;

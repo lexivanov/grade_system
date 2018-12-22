@@ -19,7 +19,7 @@ class CoursePage extends Component {
     }
 
     onChangeGrade = async (userId, taskId, value) => {
-        if (!value) { return };
+        if (!value) value = '';
         await this.props.setGrade(userId, taskId, value);
     }
 
@@ -46,13 +46,17 @@ class CoursePage extends Component {
         if (!fullname) {
             return;
         }
-        await this.props.addOrEditUser({fullname, courseId: this.id});
+        await this.props.addOrEditUser({ fullname, courseId: this.id });
         this.setState({ userName: '' });
     }
 
     render() {
         return this.props.users ? (
             <div className='course-page-wrapper'>
+                <div className="add-user-block">
+                    <input value={this.state.userName} onChange={(evt) => this.setState({ userName: evt.target.value })} className='add-user-input' type='text' />
+                    <button className='add-user-button' onClick={this.onAddNewUser} disabled={!this.state.userName}>Add user</button>
+                </div>
                 <div className='course-wrapper'>
                     <LeftSide />
                     <MiddlePart
@@ -62,15 +66,11 @@ class CoursePage extends Component {
                         users={this.props.users.filter(user => user.courseId === this.id)} />
                     <RightSide
                         users={this.props.users.filter(user => user.courseId === this.id)}
-                        statuses={this.props.statuses} 
-                        onChangeStatus={this.setStatus}       
-                        onChangeProject={this.setProject}  
-                        onChangeComment={this.setComment}              
+                        statuses={this.props.statuses}
+                        onChangeStatus={this.setStatus}
+                        onChangeProject={this.setProject}
+                        onChangeComment={this.setComment}
                     />
-                </div>
-                <div>
-                    <input value={this.state.userName} onChange={(evt) => this.setState({ userName: evt.target.value })} className='add-user-input' type='text' />
-                    <button className='add-user-button' onClick={this.onAddNewUser} disabled={!this.state.userName}>Add user</button>
                 </div>
             </div>
         ) : <div className='course-wrapper' />;

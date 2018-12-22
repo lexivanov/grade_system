@@ -1,7 +1,7 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 import { App, MainPage, CoursePage } from './components';
-import { Route, Redirect, BrowserRouter, Switch, Link } from 'react-router-dom';
+import { Route, Redirect, BrowserRouter, Switch } from 'react-router-dom';
 import { store } from './store/store';
 
 import { Provider } from 'react-redux';
@@ -17,7 +17,6 @@ ReactDOM.render((
                     <Redirect to='/main' />
                 </Route>
             </Switch>
-            <Link to='/main'>НА ГЛАВНУЮ</Link>
         </App>
     </BrowserRouter>
 </Provider>), 

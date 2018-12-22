@@ -1,21 +1,23 @@
 .main-wrapper {
     margin: 20px auto 0;
     padding: 20px;
-    border: solid 1px #000000;
+    border: solid 1px #d0d3d6;
     border-radius: 5px;
-    width: 80%;
+    width: 100%;
+    background-color: #fbfdff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
     .link-wrapper {
         margin: 0 auto;
         padding: 20px;
-        border: solid 1px #000000;
+        border: solid 1px #828486;
         border-top: 0;
+        background-color: #f7f7f7;
         &:first-child{
-            border-top: solid 1px #000000;
+            border-top: solid 1px #828486;
         }
         .course-link {
             text-decoration: none;
-            font-family: Arial, Helvetica, sans-serif;
             font-weight: bold;
             font-size: 20px;
             text-transform: uppercase;
@@ -25,8 +27,9 @@
             }
         }
         .course-desc {
-            padding-top: 10px;
+            padding: 10px 0;
             text-overflow: ellipsis;
+            font-family: 'Montserrat';
             overflow: hidden;
             white-space: nowrap;
             width: 600px;

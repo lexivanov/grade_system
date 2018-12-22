@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import { Link } from 'react-router-dom';
 import { gradeColors } from '../../../../../constants';
 
 import './middle-part.scss';
@@ -19,7 +20,7 @@ export class MiddlePart extends Component {
                 {this.props.tasks.map(task => {
                     return (<div className='task-column' key={task.id}>
                         <div className='task-cell middle-cell'>
-                            <a className='task-link' href="./main">{task.name}</a>
+                            <Link className='task-link' to="/main">{task.name}</Link>
                         </div>
                         {this.props.users.map(user => {
                             let color = undefined;

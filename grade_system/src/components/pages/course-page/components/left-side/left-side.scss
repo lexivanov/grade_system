@@ -3,7 +3,7 @@
 
     .fake-row {
         height: 30px;
-        border: 1px solid #000000;
+        border: 1px solid #828486;
     }
 
     .user-row {
@@ -14,15 +14,15 @@
 
     .left-cell {
         height: 30px;
-        border: 1px solid #000000;
+        border: 1px solid #828486;
         border-top: 0;
         border-right: 0;
         padding: 5px;
-
+        font-family: 'Times New Roman', Times, serif;
         &.average-cell {
             min-width: 50px;
             flex-grow: 0;
-            border-right: 1px solid #000000;
+            border-right: 1px solid #828486;
         }
 
         &.username-cell {

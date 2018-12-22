@@ -17,12 +17,12 @@
         // }
 
         .middle-cell {
+            font-family: 'Times New Roman', Times, serif;
             height: 30px;
-            border: solid #000000 1px;
+            border: solid #828486 1px;
             border-left: 0;
             padding: 5px;
             font-size: 14px;
-            font-family: Arial, Helvetica, sans-serif;
             text-decoration: none;
             color: #4b1b00;
             &.edit{
@@ -48,6 +48,7 @@
             .task-link {
                 text-decoration: none;
                 color: #059bff;
+                font-family: 'Oswald';
 
                 &:hover {
                     color: #ff0000;
@@ -69,9 +70,9 @@
         .fake-cell{
             height: 30px;
             width: 100%;
-            border-bottom: 1px solid #000000;
+            border-bottom: 1px solid #828486;
             &:first-child{
-                border-top: 1px solid #000000;
+                border-top: 1px solid #828486;
             }
         }
     }
