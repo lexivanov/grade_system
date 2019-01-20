@@ -3,17 +3,22 @@ const Grade = require("../models/grade");
 const taskCourseRelation = require("../models/taskcourserelation");
 const Task = require("../models/task");
 const Status = require("../models/status");
+const Course = require("../models/course");
 
 
 
 exports.GetAllbyId = async (req, res) => {
   const result = {
+    course: {},
     users: [],
     tasks: [],
     grades: [],
     statuses: [],
   }; 
   
+  const couseItself = await Course.findOne({ _id: req.params.id });
+  result.course = couseItself;
+
   const relatedUsers = await User.find({ courseId: req.params.id });
   result.users = relatedUsers;
   const relatedCTR = await taskCourseRelation.find({ courseId: req.params.id });

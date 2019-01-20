@@ -19,11 +19,22 @@
 
 .add-user-block {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding-top: 20px;
-
+    height: 50px;
+    align-items: center;
+    .add-user-wrapper{
+        display: flex;
+        
+    }
+    input{
+        display: block;
+        width: 150px;
+        height: 30px;
+    }
     .add-user-button {
         padding: 5px 10px;
+        height: 30px;
         background: $submit-btn-color;
         border: solid 1px #000000;
         font-family: Oswald;

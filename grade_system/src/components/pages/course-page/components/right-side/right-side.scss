@@ -1,5 +1,5 @@
 .right-side {
-    width: 400px;
+    width: 40%;
     display: flex;
     flex-flow: column nowrap;
 
@@ -37,16 +37,16 @@
         flex-flow: row nowrap;
         .status-header{
             border-right: 0;
-            width: 70px;
+            width: 25%;
             font-family: 'Oswald';
         }
         .project-header{
             border-right: 0;
-            width: 100px;
+            width: 28%;
             font-family: 'Oswald';
         }
         .comment-header{
-            width: 150px;
+            width: 47%;
             font-family: 'Oswald';
         }
     }
@@ -70,21 +70,21 @@
         .user-status {
             border-top: 0;
             border-right: 0;
-            width: 70px;
+            width: 25%;
         }
         .user-project {
             border-top: 0;
             border-right: 0;
-            width: 100px;
+            width: 28%;
             span{
-                width: 90px;
+                width: 90%;
             }
         }
         .user-comment {
             border-top: 0;
-            width: 150px;
+            width: 47%;
             span{
-                width: 140px;
+                width: 90%;
             }
 
         }

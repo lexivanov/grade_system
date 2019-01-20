@@ -53,9 +53,12 @@ class CoursePage extends Component {
     render() {
         return this.props.users ? (
             <div className='course-page-wrapper'>
-                <div className="add-user-block">
-                    <input value={this.state.userName} onChange={(evt) => this.setState({ userName: evt.target.value })} className='add-user-input' type='text' />
-                    <button className='add-user-button' onClick={this.onAddNewUser} disabled={!this.state.userName}>Add user</button>
+                <div className='add-user-block'>
+                    <div className='course-name'>{this.props.course.name}</div>
+                    <div className='add-user-wrapper'>
+                        <input value={this.state.userName} onChange={(evt) => this.setState({ userName: evt.target.value })} className='add-user-input' type='text' />
+                        <button className='add-user-button' onClick={this.onAddNewUser} disabled={!this.state.userName}>Add user</button>
+                    </div>
                 </div>
                 <div className='course-wrapper'>
                     <LeftSide />
@@ -88,6 +91,7 @@ export default withRouter(connect(
         tasks: state.courseReducer.currentCourseInfo.tasks,
         grades: state.courseReducer.currentCourseInfo.grades,
         statuses: state.courseReducer.currentCourseInfo.statuses,
+        course: state.courseReducer.currentCourseInfo.course,
         ownProps
     }),
     dispatch => ({
