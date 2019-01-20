@@ -17,16 +17,16 @@ exports.addOrEdit = (req, result) => {
     if (newStatus._id === undefined) {
         Status.create(newStatus)
         .then(res => result.json(res))
-        .catch(rej => result.status(404).send('idi nahuy'));
+        .catch(rej => result.status(404).json(rej.message));
     } else {
         Status.replaceOne({ _id: newStatus._id }, newStatus)
         .then(res => result.json(res))
-        .catch(rej => result.status(404).send('idi nahuy'));
+        .catch(rej => result.status(404).json(rej.message));
     }
 };
 
 exports.remove = (req, res) => {
     Status.deleteOne({ _id: req.params.id })
     .then(good => res.status(200).json({id: req.params.id}))
-    .catch(rej => res.status(400).send('idi nahuy'));
+    .catch(rej => res.status(400).json(rej.message));
 }
