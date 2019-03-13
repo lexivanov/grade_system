@@ -19,7 +19,7 @@ class CoursePage extends Component {
     }
 
     onChangeGrade = async (userId, taskId, value) => {
-        if (!value) value = '';
+        if (!value) value = null;
         await this.props.setGrade(userId, taskId, value);
     }
 

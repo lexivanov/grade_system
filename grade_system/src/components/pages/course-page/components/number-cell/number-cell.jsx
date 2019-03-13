@@ -54,7 +54,7 @@ export class NumberCell extends Component {
     onBlur = () => {
         const value = this.state.currentValue;
         this.setState({ isInEditMode: false });
-        this.setState({ currentValue: value === '' ? '' : (value - 0) + '' });
-        this.props.onChange(value === null ? '' : value - 0);  
+        this.setState({ currentValue: !value && value !== 0 ? '' : (value - 0) + '' });
+        this.props.onChange(!value && value !== 0 ? '' : value - 0);  
     }
 }
