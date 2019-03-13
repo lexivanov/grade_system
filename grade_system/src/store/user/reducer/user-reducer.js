@@ -20,6 +20,14 @@ export const userReducer = function (state = {
                 return { ...state };
             }
         }
+        case actionTypes.deleteUser: {
+            console.log(payload);
+            console.log(state);
+            const tmpList = [...state.userList];
+            tmpList.splice(tmpList.findIndex(x => x.id === payload),1);
+            
+            return { ...state, userList: tmpList };
+        }
         default: {
             return { ...state };
         }

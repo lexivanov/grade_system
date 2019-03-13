@@ -13,6 +13,14 @@ export const fetchUserGrades = (id) => dispatch => {
     }).catch(() => {});
 };
 
+export const deleteUser = (id) => dispatch => {
+    UserController.delete(id).then((resolve) => {
+        dispatch(deleteUserAction(id));
+    }).catch(() => {});
+};
+
+
+
 const loadUsers = (payload) => ({
     type: actionTypes.loadUsers,
     payload
@@ -20,5 +28,10 @@ const loadUsers = (payload) => ({
 
 const loadUserGrades = (payload) => ({
     type: actionTypes.loadUserGrades,
+    payload
+});
+
+const deleteUserAction = (payload) => ({
+    type: actionTypes.deleteUser,
     payload
 });

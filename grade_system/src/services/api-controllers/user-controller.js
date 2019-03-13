@@ -86,4 +86,26 @@ export class UserController {
 
         return promise;
     }
+
+    static delete(id) {
+        const promise = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("DELETE", `http://localhost:3000/api/user/${id}`, true);
+           
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status !== 200) {
+                        reject(xhr.responseText);
+                    }
+                    else {
+                        const deleteResult = JSON.parse(xhr.responseText);
+                        resolve(deleteResult);
+                    }
+                }
+            };
+            xhr.send();
+        });
+
+        return promise;
+    }
 }
