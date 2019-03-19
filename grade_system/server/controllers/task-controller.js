@@ -9,13 +9,12 @@ exports.getAll = (req, res) => {
 };
 
 exports.getById = (req, res) => {
-  Task.findOne({ _id: req.params.id })
+  Task.find({ _id: req.params.id })
     .then(result => res.status(200).json(result))
     .catch(rej => console.log(rej));
 };
 
 exports.addOrEdit = (req, res) => {
-  console.log(req.body);
   const newTask = req.body;
   if (newTask.id === undefined) {
     Task.create(newTask)
@@ -28,7 +27,7 @@ exports.addOrEdit = (req, res) => {
       res.status(400).send("Description is required");
     } else {
       Task.replaceOne({ _id: newTask.id }, newTask)
-        .then(result => res.status(200).json(result))
+        .then(result => res.status(200).json(newTask))
         .catch(rej => res.status(404).json(rej.message));
     }
   }

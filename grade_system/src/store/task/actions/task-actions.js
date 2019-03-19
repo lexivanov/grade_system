@@ -19,7 +19,7 @@ export const deleteUser = (id) => dispatch => {
     }).catch(() => {});
 };
 
-export const fetchCourseInfo = (newTask) => dispatch => {
+export const addEditTask = (newTask) => dispatch => {
     TaskController.addEdit(newTask).then((resolve) => {
         dispatch(editTaskAction(resolve));
     }).catch(() => {});
@@ -42,6 +42,6 @@ const deleteTaskAction = (payload) => ({
 });
 
 const editTaskAction = (payload) => ({
-    type: actionTypes.deleteTask,
+    type: actionTypes.addEditTask,
     payload
 });

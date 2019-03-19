@@ -53,8 +53,8 @@ export class TaskController {
                         reject(xhr.responseText);
                     }
                     else {
-                        const user = JSON.parse(xhr.responseText);
-                        resolve(user);
+                        const task = JSON.parse(xhr.response);
+                        resolve(task);
                     }
                 }
             };

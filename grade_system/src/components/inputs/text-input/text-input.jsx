@@ -2,6 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export function TextInput(props) {
+    
+    const onChangeNativeInput = (event) => {
+        props.onChange(event.target.value);
+    }
+
+    const onBlurNativeInput = (event) => {
+        props.onBlur(event.target.value);
+    }
+
     return (
         <input
             className={props.className}
@@ -10,9 +19,11 @@ export function TextInput(props) {
             value={props.value}
             name={props.name}
             id={props.id}
-            onChange={props.onChange} />
+            onChange={onChangeNativeInput}
+            onBlur={onBlurNativeInput} />
     );
 }
+
 
 TextInput.propTypes = {
     className: PropTypes.string,
@@ -20,5 +31,7 @@ TextInput.propTypes = {
     name: PropTypes.string,
     id:PropTypes.number,
     value: PropTypes.string,
-    onChange:PropTypes.func
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func
 };
+
