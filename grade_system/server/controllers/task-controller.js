@@ -9,7 +9,7 @@ exports.getAll = (req, res) => {
 };
 
 exports.getById = (req, res) => {
-  Task.find({ _id: req.params.id })
+  Task.findOne({ _id: req.params.id })
     .then(result => res.status(200).json(result))
     .catch(rej => console.log(rej));
 };

@@ -20,7 +20,7 @@ export class MiddlePart extends Component {
                 {this.props.tasks.map(task => {
                     return (<div className='task-column' key={task.id}>
                         <div className='task-cell middle-cell'>
-                            <Link className='task-link' to="/main">{task.name}</Link>
+                            <Link className='task-link' to={`/task/${task.id}`}>{task.name}</Link>
                         </div>
                         {this.props.users.map(user => {
                             let color = undefined;
