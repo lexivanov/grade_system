@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
 import { fetchUsersList } from '../../store/user/actions'
+import { Modal } from '../containers';
 
 import './app.scss';
 
@@ -35,14 +36,19 @@ class App extends Component {
                     </div>
                 </div>
                 {this.props.children}
+                <Modal>
+                    {this.props.modalContent}
+                </Modal>
             </div>
         );
     }
 }
 
 export default withRouter(connect(
-    state => ({
-        store: state
+    (state, ownprops) => ({
+        store: state,
+        modalContent: state.modalReducer.content,
+        ...ownprops
     }),
     dispatch => ({
         getUsers: () => dispatch(fetchUsersList()),

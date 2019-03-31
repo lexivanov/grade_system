@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { LeftSide, MiddlePart, RightSide } from './components';
 import { fetchCourseInfo, setGrade, addOrEditUser } from '../../../store/course';
-
+import { AddTaskForm } from '../../forms';
 import './course-page.scss';
+import { showModal } from '../../../store/modal';
 
 class CoursePage extends Component {
     flag = true;
@@ -50,6 +51,10 @@ class CoursePage extends Component {
         this.setState({ userName: '' });
     }
 
+    onAddNewTask = async () => {
+        this.props.showModal(<AddTaskForm/>);
+    }
+
     render() {
         return this.props.users ? (
             <div className='course-page-wrapper'>
@@ -75,6 +80,9 @@ class CoursePage extends Component {
                         onChangeComment={this.setComment}
                     />
                 </div>
+                <div className='add-task-block'>
+                    <button className='add-task-button' onClick={this.onAddNewTask}>Add task</button>
+                </div>
             </div>
         ) : <div className='course-wrapper' />;
     }
@@ -97,6 +105,7 @@ export default withRouter(connect(
     dispatch => ({
         getInfo: (id) => dispatch(fetchCourseInfo(id)),
         setGrade: (userId, taskId, value) => dispatch(setGrade(userId, taskId, value)),
-        addOrEditUser: (newUser) => dispatch(addOrEditUser(newUser))
+        addOrEditUser: (newUser) => dispatch(addOrEditUser(newUser)),
+        showModal: (content) => dispatch(showModal(content))
     })
 )(CoursePage));

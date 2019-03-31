@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export function TextInput(props) {
+export function Textarea(props) {
     
     const onChangeNativeInput = (event) => {
         props.onChange && props.onChange(event.target.value);
@@ -12,9 +12,8 @@ export function TextInput(props) {
     }
 
     return (
-        <input
+        <textarea
             className={props.className}
-            type='text'
             placeholder={props.placeholder}
             value={props.value}
             name={props.name}
@@ -25,7 +24,7 @@ export function TextInput(props) {
 }
 
 
-TextInput.propTypes = {
+Textarea.propTypes = {
     className: PropTypes.string,
     placeholder: PropTypes.string,
     name: PropTypes.string,
