@@ -15,6 +15,7 @@ class CoursePage extends Component {
         this.id = idResolver(window.location.pathname);
         this.state = { userName: '', selectedItem: null };
     }
+    
     async componentDidMount() {
         await this.props.getInfo(idResolver(window.location.pathname));
     }

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { addEditTask } from '../../store/task';
 import { connect } from 'react-redux';
 
+import './addTaskForm.scss';
+
 class AddTaskForm extends Component {
     static propTypes = {
         editTask: PropTypes.func,
@@ -22,6 +24,7 @@ class AddTaskForm extends Component {
         return (
             <div className='add-task-form'>
                 <label className='add-task-label name'>
+                    <span className='add-task-label-text'>Title: </span>
                     <TextInput
                         className='add-task-input name'
                         value={this.state.task.name}
@@ -29,6 +32,7 @@ class AddTaskForm extends Component {
                     />
                 </label>
                 <label className='add-task-label description'>
+                    <span className='add-task-label-text'>Description: </span>
                     <Textarea
                         className='add-task-input description'
                         value={this.state.task.description}

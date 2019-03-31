@@ -15,11 +15,11 @@ class UsersPage extends Component {
             <div className='users-page-wrapper'>
                 {this.props.users.map(user => (
                     <div key={user.id} className='link-wrapper'>
-                        <div className='username-cell'>
+                        <div className='username-container'>
                             <Link to={`/user/${user.id}`} className='user-link'>{user.fullname}</Link>
                         </div>
-                        <div className='delete-button-cell'>
-                            <button className= 'delete-button' onClick={() => this.props.deleteUser(user.id)}>X</button>
+                        <div className='delete-button-container'>
+                            <button className='delete-button' onClick={() => this.props.deleteUser(user.id)}>X</button>
                         </div>
                     </div>
                 ))}

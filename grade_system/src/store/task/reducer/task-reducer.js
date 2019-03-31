@@ -16,7 +16,8 @@ export const taskReducer = function (state = {
         case actionTypes.addEditTask: {
             console.log(payload);
             const tmpList = [...state.taskList];
-            tmpList[tmpList.findIndex(x => x.id === payload.id)] = payload;
+            const index = tmpList.findIndex(x => x.id === payload.id);
+            index !== -1 ? tmpList[index] = payload : tmpList.push(payload);
             return { ...state, task: payload, taskList: tmpList};
         }
         case actionTypes.deleteTask: {

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-import { App, MainPage, CoursePage, TaskPage } from './components';
+import { App, MainPage, CoursePage, TaskPage, TaskListPage } from './components';
 import { UsersPage } from './components/pages/users-page';
 import { Route, Redirect, BrowserRouter, Switch } from 'react-router-dom';
 import { store } from './store/store';
@@ -16,6 +16,7 @@ ReactDOM.render((
                 <Route path='/main' exact component={MainPage} />
                 <Route path='/users' exact component={UsersPage} />
                 <Route path='/task/:id' exact component={TaskPage} />
+                <Route path='/tasks' exact component={TaskListPage} />
                 <Route path='*' >
                     <Redirect to='/main' />
                 </Route>

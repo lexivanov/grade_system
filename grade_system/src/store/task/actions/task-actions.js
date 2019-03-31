@@ -13,7 +13,7 @@ export const loadTask = (id) => dispatch => {
     }).catch(() => {});
 };
 
-export const deleteUser = (id) => dispatch => {
+export const deleteTask = (id) => dispatch => {
     TaskController.delete(id).then((resolve) => {
         dispatch(deleteTaskAction(id));
     }).catch(() => {});

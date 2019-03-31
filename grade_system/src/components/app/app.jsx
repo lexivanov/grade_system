@@ -26,6 +26,7 @@ class App extends Component {
                         <nav className='app-nav'>
                             <Link to={`/main`} className='header-link'>Courses</Link>
                             <Link to={`/users`} className='header-link'>Users</Link>
+                            <Link to={`/tasks`} className='header-link'>Tasks</Link>
                         </nav>
                         <div className='user-menu'>
                             <div className='user-button'>
@@ -35,7 +36,9 @@ class App extends Component {
                         </div>
                     </div>
                 </div>
-                {this.props.children}
+                <div className='body-container'>
+                    {this.props.children}
+                </div>
                 <Modal>
                     {this.props.modalContent}
                 </Modal>

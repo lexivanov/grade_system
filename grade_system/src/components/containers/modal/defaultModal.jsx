@@ -13,7 +13,7 @@ class DefaultModal extends React.Component {
                     <div className='modal-container'>
                         <div className='modal-header'>
                             <button
-                                className='close-modal'
+                                className='close-icon'
                                 onClick={() => this.props.hide()}>X</button>
                         </div>
                         <div className='modal-body'>

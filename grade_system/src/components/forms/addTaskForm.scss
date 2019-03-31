@@ -1,0 +1,23 @@
+.add-task-form {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0 10px 10px;
+
+    .add-task-label {
+        display: flex;
+        padding: 0 0 10px;
+
+        .add-task-label-text {
+            width: 100px;
+        }
+
+        .add-task-label-text {
+            width: 100px;
+        }
+
+        .add-task-input {
+            width: 100%;
+            resize: none;
+        }
+    }
+}
