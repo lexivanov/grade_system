@@ -1,0 +1,101 @@
+@import '../../../constants/application-colors.scss';
+
+.task-page {
+    margin: 20px auto 20px;
+    padding: 20px;
+    border: solid 1px #d0d3d6;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #fbfdff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    .controls {
+        display: flex;
+        justify-content: flex-end;
+
+        .btn {
+            margin-left: 5px;
+            padding: 5px 10px;
+            height: 30px;
+            border: solid 1px #000000;
+            font-family: Oswald;
+
+        }
+
+        .apply-button,
+        .edit-button {
+            background: $submit-btn-color;
+
+            &:disabled {
+                background: $submit-disabled-color;
+            }
+        }
+
+        .cancel-button {
+            background: $cancel-btc-color;
+
+            &:disabled {
+                background: $danger-disabled-color;
+            }
+        }
+    }
+
+    .task-input {
+        width: 100%;
+        margin-top: 10px;
+
+        &.description {
+            resize: none;
+            height: 198px;
+            &:disabled {
+                background: #fbfdff;
+                border: none;
+                font-family: inherit;
+                font-size: 18px;
+                line-height: 18px;
+            }
+        }
+
+    }
+
+    .task-wrapper {
+        font-size: 16px;
+        font-weight: 100;
+        line-height: 16px;
+        margin-top: 5px;
+        width: 100%;
+
+        &.name {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 22px;
+        }
+
+        &.link {
+            font-style: italic;
+            text-decoration: none;
+
+            .task-text {
+                text-decoration: none;
+                color: $link-color;
+
+                &:visited {
+                    color: $link-color;
+                }
+
+                &:hover {
+                    color: $link-hover-color;
+                }
+
+            }
+        }
+    }
+
+    .task-name-label {
+        display: inline-block;
+    }
+
+    .task-name-text {
+        display: inline-block;
+    }
+}

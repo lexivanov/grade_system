@@ -19,7 +19,8 @@ export function Textarea(props) {
             name={props.name}
             id={props.id}
             onChange={onChangeNativeInput}
-            onBlur={onBlurNativeInput} />
+            onBlur={onBlurNativeInput}
+            disabled={props.disabled} />
     );
 }
 
@@ -31,6 +32,7 @@ Textarea.propTypes = {
     id:PropTypes.number,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+    disabled: PropTypes.bool
 };
 
