@@ -86,4 +86,49 @@ export class TaskController {
 
         return promise;
     }
+
+    static getCourses(id) {
+        const promise = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", `http://localhost:3000/api/task/${id}/courses`, true);
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status !== 200) {
+                        reject(xhr.responseText);
+                    }
+                    else {
+                        const tasks = JSON.parse(xhr.responseText);
+                        resolve(tasks);
+                    }
+                }
+            };
+        });
+
+        return promise;
+    }
+
+    static assign(id, courseId) {
+        const promise = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", `http://localhost:3000/api/course-task`, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status !== 200) {
+                        reject(xhr.responseText);
+                    }
+                    else {
+                        const task = JSON.parse(xhr.response);
+                        resolve(task);
+                    }
+                }
+            };
+
+            xhr.send(JSON.stringify({taskId: id, courseId}));
+        });
+
+        return promise;
+    }
 }

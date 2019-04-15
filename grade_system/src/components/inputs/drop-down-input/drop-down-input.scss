@@ -1,0 +1,22 @@
+.drop-down-input {
+    position: relative;
+
+    .drop-down-view {
+        height: 100%; 
+        width: 100%;
+        border: 1px #000000 solid;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        padding: 2px;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .drop-down-edit {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+}

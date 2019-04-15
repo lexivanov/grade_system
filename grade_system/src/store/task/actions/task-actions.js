@@ -13,9 +13,21 @@ export const loadTask = (id) => dispatch => {
     }).catch(() => {});
 };
 
+export const loadTaskCourses = (id) => dispatch => {
+    TaskController.getCourses(id).then((resolve) => {
+        dispatch(loadTaskCoursesAction(resolve));
+    }).catch(() => {});
+};
+
 export const deleteTask = (id) => dispatch => {
     TaskController.delete(id).then((resolve) => {
         dispatch(deleteTaskAction(id));
+    }).catch(() => {});
+};
+
+export const assignTask = (taskId, course) => dispatch => {
+    TaskController.assign(taskId, course.id).then((resolve) => {
+        dispatch(assignTaskAction(course));
     }).catch(() => {});
 };
 
@@ -31,6 +43,11 @@ const loadTasksAction = (payload) => ({
     payload
 });
 
+const loadTaskCoursesAction = (payload) => ({
+    type: actionTypes.loadTaskCourses,
+    payload
+});
+
 const loadTaskAction = (payload) => ({
     type: actionTypes.loadTask,
     payload
@@ -43,5 +60,10 @@ const deleteTaskAction = (payload) => ({
 
 const editTaskAction = (payload) => ({
     type: actionTypes.addEditTask,
+    payload
+});
+
+const assignTaskAction = (payload) => ({
+    type: actionTypes.assignTask,
     payload
 });

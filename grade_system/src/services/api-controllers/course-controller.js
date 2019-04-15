@@ -44,7 +44,7 @@ export class CourseController {
     static getTasks(id) {
         const promise = new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", `http://localhost:3000/api/course-task-relations/${id}`, true);
+            xhr.open("GET", `http://localhost:3000/api/course/${id}/tasks`, true);
             xhr.send();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -65,7 +65,7 @@ export class CourseController {
     static getCourseInfo(id) {
         const promise = new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", `http://localhost:3000/api/course-info/${id}`, true);
+            xhr.open("GET", `http://localhost:3000/api/course/${id}/info`, true);
             xhr.send();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {

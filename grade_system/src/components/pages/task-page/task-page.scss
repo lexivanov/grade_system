@@ -1,15 +1,51 @@
 @import '../../../constants/application-colors.scss';
 
 .task-page {
-    margin: 20px auto 20px;
-    padding: 20px;
-    border: solid 1px #d0d3d6;
-    border-radius: 5px;
     width: 100%;
-    background-color: #fbfdff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+
+    .task-info-wrapper {
+        margin: 0 0 20px 280px;
+        padding: 20px;
+        border: solid 1px #d0d3d6;
+        border-radius: 5px;
+        min-width: 420px;
+        background-color: #fbfdff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .assign-board {
+        position: absolute;
+        height: 300px;
+        padding: 20px;
+        border: solid 1px #d0d3d6;
+        border-radius: 5px;
+        width: 260px;
+        background-color: #fbfdff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+        .assign-dropdown {
+            display: flex;
+            flex-flow: row nowrap;
+
+            .assign-board-dropdown {
+                width: 100%;
+            }
+
+            .drop-down-edit {
+                width: 100%;
+
+                .drop-down-content {
+                    height: auto;
+                    max-height: 120px;
+                }
+            }
+        }
+    }
 
     .controls {
+        margin: 10px 0;
+        min-width: 700px;
         display: flex;
         justify-content: flex-end;
 
@@ -47,6 +83,7 @@
         &.description {
             resize: none;
             height: 198px;
+
             &:disabled {
                 background: #fbfdff;
                 border: none;

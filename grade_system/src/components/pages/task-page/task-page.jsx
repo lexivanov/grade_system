@@ -7,6 +7,7 @@ import { TextInput, Textarea } from '../../../components';
 
 import './task-page.scss';
 import { ButtonWithText } from '../../buttons';
+import { AssignBoard } from './components';
 
 class TaskPage extends Component {
     static propTypes = {
@@ -84,41 +85,41 @@ class TaskPage extends Component {
                                 onClick={this.onApply}
                             />
                         </Fragment>
-
-                        : <Fragment>
-                            <ButtonWithText
-                                type='button'
-                                className='edit-button btn'
-                                text='EDIT'
-                                onClick={this.onEdit}
+                        : <ButtonWithText
+                            type='button'
+                            className='edit-button btn'
+                            text='EDIT'
+                            onClick={this.onEdit}
+                        />}
+                </div>
+                <AssignBoard />
+                <div className='task-info-wrapper'>
+                    <div className='task-wrapper name'>
+                        {this.state.editMode
+                            ? <TextInput
+                                className='task-input name'
+                                value={this.state.task.name}
+                                onChange={this.onChangeInput('name')}
                             />
-                        </Fragment>}
-                </div>
-                <div className='task-wrapper name'>
-                    {this.state.editMode
-                        ? <TextInput
-                            className='task-input name'
-                            value={this.state.task.name}
-                            onChange={this.onChangeInput('name')}
+                            : <div className='task-name-text'>{this.props.task.name || ''}</div>}
+                    </div>
+                    <div className='task-wrapper description'>
+                        <Textarea
+                            className='task-input description'
+                            value={this.state.editMode ? this.state.task.description : this.props.task.description}
+                            onChange={this.onChangeInput('description')}
+                            disabled={!this.state.editMode}
                         />
-                        : <div className='task-name-text'>{this.props.task.name || ''}</div>}
-                </div>
-                <div className='task-wrapper description'>
-                    <Textarea
-                        className='task-input description'
-                        value={this.state.editMode ? this.state.task.description : this.props.task.description}
-                        onChange={this.onChangeInput('description')}
-                        disabled={!this.state.editMode}
-                    />
-                </div>
-                <div className='task-wrapper link'>
-                    {this.state.editMode
-                        ? <TextInput
-                            className='task-input link'
-                            value={this.state.task.filePath}
-                            onChange={this.onChangeInput('filePath')}
-                        />
-                        : this.state.task.filePath ? <a className='task-text' href={this.props.task.filePath}>Attachments</a> : null}
+                    </div>
+                    <div className='task-wrapper link'>
+                        {this.state.editMode
+                            ? <TextInput
+                                className='task-input link'
+                                value={this.state.task.filePath}
+                                onChange={this.onChangeInput('filePath')}
+                            />
+                            : this.state.task.filePath ? <a className='task-text' href={this.props.task.filePath}>Attachments</a> : null}
+                    </div>
                 </div>
             </div>);
     }

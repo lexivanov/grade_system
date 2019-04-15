@@ -2,7 +2,8 @@ import { actionTypes } from '../constants';
 
 export const taskReducer = function (state = {
     taskList: [],
-    task: {}
+    task: {},
+    assignedCourses: null
 }, action) {
     const payload = action.payload;
 
@@ -13,8 +14,10 @@ export const taskReducer = function (state = {
         case actionTypes.loadTask: {
             return { ...state, task: payload[0] };
         }
+        case actionTypes.loadTaskCourses: {
+            return { ...state, assignedCourses: payload };
+        }
         case actionTypes.addEditTask: {
-            console.log(payload);
             const tmpList = [...state.taskList];
             const index = tmpList.findIndex(x => x.id === payload.id);
             index !== -1 ? tmpList[index] = payload : tmpList.push(payload);
@@ -25,6 +28,12 @@ export const taskReducer = function (state = {
             tmpList.splice(tmpList.findIndex(x => x.id === payload),1);
             
             return { ...state, taskList: tmpList };
+        }
+        case actionTypes.assignTask: {
+            const assigned = [...state.assignedCourses];
+            assigned.push(payload);
+            
+            return { ...state, assignedCourses: assigned };
         }
         default: {
             return { ...state };

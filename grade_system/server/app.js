@@ -55,16 +55,18 @@ router
   .delete(courseController.remove);
 
 router
-  .route("/course-info/:id")
+  .route("/course/:id/info")
   .get(courseInfoController.GetAllbyId);
 
 router
-  .route("/coursetaskrelations")
+  .route("/course-task")
   .get(CTRController.getAll)
   .post(CTRController.addTaskToCourse)
   .delete(CTRController.remove);
 
-router.route("/course-task-relations/:id").get(CTRController.getCourseTasks);
+router.route("/course/:id/tasks").get(CTRController.getCourseTasks);
+
+router.route("/task/:id/courses").get(CTRController.getTaskCourses);
 
 router
   .route("/status")

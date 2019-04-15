@@ -2,6 +2,7 @@ const taskCourseRelation = require("../models/taskcourserelation");
 const User = require("../models/user");
 const Grade = require("../models/grade");
 const Task = require("../models/task");
+const Course = require("../models/course");
 
 exports.addTaskToCourse = (req, res) => {
   console.log(req.body);
@@ -31,6 +32,18 @@ exports.getCourseTasks = (req, res) => {
       const ids = result.map(item => item.taskId);
       Task.find({_id: ids})
       .then(taskArr => res.json(taskArr))
+      .catch(rej => console.log(rej));
+    })
+    .catch(rej => console.log(rej));
+};
+
+exports.getTaskCourses = (req, res) => {
+  taskCourseRelation
+    .find({ taskId: req.params.id })
+    .then(result => {
+      const ids = result.map(item => item.courseId);
+      Course.find({ _id: ids })
+      .then(courseArr => res.json(courseArr))
       .catch(rej => console.log(rej));
     })
     .catch(rej => console.log(rej));
