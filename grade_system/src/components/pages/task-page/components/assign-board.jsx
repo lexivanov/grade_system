@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { DropDownInput } from '../../../inputs';
 import { ButtonWithText } from '../../../buttons'
 import PropTypes from 'prop-types';
 
 import './assign-board.scss';
 import { fetchCourseList } from '../../../../store/course';
-import { loadTaskCourses, assignTask } from '../../../../store/task'
+import { loadTaskCourses, assignTask, disassignTask } from '../../../../store/task'
 
 class AssignBoard extends Component {
     static propTypes = {
@@ -48,8 +48,9 @@ class AssignBoard extends Component {
                 </div>
                 <div className='assigned-list'>
                     {this.props.assigned.map(x => (
-                        <div key={x.id}>
-                            {x.name}
+                        <div key={x.id} className='assigned-item'>
+                            <Link to={`/course/${x.id}`} className='course-link'>{x.name}</Link>
+                            <button className='delete-button' onClick={() => this.onDisAssign(x)}>X</button>
                         </div>
                     ))}
                 </div>
@@ -65,6 +66,10 @@ class AssignBoard extends Component {
     onAssign = async () => {
         await this.props.assign(this.id, this.props.courses.find(x => x.id === this.state.selectedCourse));
         this.ddlRef.resetSelection();
+    }
+
+    onDisAssign = async (course) => {
+        await this.props.disassign(this.id, course);
     }
 
 }
@@ -83,6 +88,7 @@ export default withRouter(connect(
     dispatch => ({
         getCourses: () => dispatch(fetchCourseList()),
         getAssigned: (id) => dispatch(loadTaskCourses(id)),
-        assign: (id, course) => dispatch(assignTask(id, course))
+        assign: (id, course) => dispatch(assignTask(id, course)),
+        disassign: (id, course) => dispatch(disassignTask(id, course))
     })
 )(AssignBoard));

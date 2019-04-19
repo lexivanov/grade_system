@@ -5,4 +5,5 @@ export const actionTypes = {
     deleteTask: 'DELETE_TASK',
     loadTaskCourses: 'LOAD_TASK_COURSES',
     assignTask: 'ASSIGN_TASK',
+    disassignTask: 'DISASSIGN_TASK',
 };

@@ -35,6 +35,12 @@ export const taskReducer = function (state = {
             
             return { ...state, assignedCourses: assigned };
         }
+        case actionTypes.disassignTask: {
+            const assigned = [...state.assignedCourses];
+            assigned.splice(assigned.findIndex(x => x.id === payload.id), 1);
+            
+            return { ...state, assignedCourses: assigned };
+        }
         default: {
             return { ...state };
         }

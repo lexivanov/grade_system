@@ -31,6 +31,12 @@ export const assignTask = (taskId, course) => dispatch => {
     }).catch(() => {});
 };
 
+export const disassignTask = (taskId, course) => dispatch => {
+    TaskController.disassign(taskId, course.id).then((resolve) => {
+        dispatch(disassignTaskAction(course));
+    }).catch(() => {});
+};
+
 export const addEditTask = (newTask) => dispatch => {
     TaskController.addEdit(newTask).then((resolve) => {
         dispatch(editTaskAction(resolve));
@@ -65,5 +71,10 @@ const editTaskAction = (payload) => ({
 
 const assignTaskAction = (payload) => ({
     type: actionTypes.assignTask,
+    payload
+});
+
+const disassignTaskAction = (payload) => ({
+    type: actionTypes.disassignTask,
     payload
 });
