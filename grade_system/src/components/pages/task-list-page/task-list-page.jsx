@@ -8,10 +8,6 @@ import { showModal } from '../../../store/modal';
 import './task-list-page.scss';
 
 class TaskListPage extends Component {
-    static PropNames = {
-
-    }
-
     componentDidMount() {
         this.props.getTasks();
     }

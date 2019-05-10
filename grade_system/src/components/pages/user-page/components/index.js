@@ -1,0 +1,1 @@
+export { default as AssignBoard } from './assign-board';

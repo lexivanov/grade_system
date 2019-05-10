@@ -19,10 +19,30 @@ export const deleteUser = (id) => dispatch => {
     }).catch(() => {});
 };
 
+export const loadUser = (id) => dispatch => {
+    UserController.getByID(id).then((resolve) => {
+        dispatch(loadUserAction(resolve));
+    }).catch(() => {});
+};
 
+export const addEditUser = (user) => dispatch => {
+    UserController.addEditUser(user).then((resolve) => {
+        dispatch(addEditUserAction(user));
+    }).catch(() => {});
+};
 
 const loadUsers = (payload) => ({
     type: actionTypes.loadUsers,
+    payload
+});
+
+const loadUserAction = (payload) => ({
+    type: actionTypes.loadUser,
+    payload
+});
+
+const addEditUserAction = (payload) => ({
+    type: actionTypes.addEditUser,
     payload
 });
 

@@ -60,6 +60,6 @@ export class DropDownInput extends Component {
     }
 
     resetSelection = () => {
-        this.setState({ currentValue: this.props.value || this.props.items[0] });
+        this.setState({ currentValue: undefined });
     }
 }

@@ -1,0 +1,138 @@
+@import '../../../constants/application-colors.scss';
+
+.user-page {
+    width: 100%;
+    position: relative;
+
+    .user-info-wrapper {
+        margin: 0 0 20px 280px;
+        padding: 20px;
+        border: solid 1px #d0d3d6;
+        border-radius: 5px;
+        min-width: 420px;
+        background-color: #fbfdff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .assign-board {
+        position: absolute;
+        height: 303px;
+        padding: 20px;
+        border: solid 1px #d0d3d6;
+        border-radius: 5px;
+        width: 260px;
+        background-color: #fbfdff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+        .assign-dropdown {
+            display: flex;
+            flex-flow: row nowrap;
+
+            .assign-board-dropdown {
+                width: 100%;
+            }
+
+            .drop-down-edit {
+                width: 100%;
+
+                .drop-down-content {
+                    height: auto;
+                    max-height: 120px;
+                }
+            }
+        }
+    }
+
+    .controls {
+        margin: 10px 0;
+        min-width: 700px;
+        display: flex;
+        justify-content: flex-end;
+
+        .btn {
+            margin-left: 5px;
+            padding: 5px 10px;
+            height: 30px;
+            border: solid 1px #000000;
+            font-family: Oswald;
+
+        }
+
+        .apply-button,
+        .edit-button {
+            background: $submit-btn-color;
+
+            &:disabled {
+                background: $submit-disabled-color;
+            }
+        }
+
+        .cancel-button {
+            background: $cancel-btc-color;
+
+            &:disabled {
+                background: $danger-disabled-color;
+            }
+        }
+    }
+
+    .user-input {
+        width: 100%;
+        margin-top: 10px;
+
+        &.description {
+            resize: none;
+            height: 198px;
+
+            &:disabled {
+                background: #fbfdff;
+                border: none;
+                font-family: inherit;
+                font-size: 18px;
+                line-height: 18px;
+            }
+        }
+
+    }
+
+    .user-wrapper {
+        font-size: 16px;
+        font-weight: 100;
+        line-height: 16px;
+        margin-top: 5px;
+        width: 100%;
+
+        &.name {
+            font-size: 22px;
+            font-weight: 600;
+            line-height: 22px;
+        }
+
+        &.link {
+            font-style: italic;
+            text-decoration: none;
+
+            .user-text {
+                text-decoration: none;
+                color: $link-color;
+
+                &:visited {
+                    color: $link-color;
+                }
+
+                &:hover {
+                    color: $link-hover-color;
+                }
+
+            }
+        }
+    }
+
+    .user-name-label {
+        display: inline-block;
+    }
+
+    .user-name-text {
+        display: inline-block;
+    }
+}
