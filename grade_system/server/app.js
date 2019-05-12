@@ -5,7 +5,10 @@ const courseController = require("./controllers/course-controller");
 const taskController = require("./controllers/task-controller");
 const CTRController = require("./controllers/taskcourserelation-controller");
 const userController = require("./controllers/user-controller");
-const courseInfoController = require("./controllers/takeAllForCourse-controller")
+const courseInfoController = require("./controllers/takeAllForCourse-controller");
+const config = require("./config.json");
+const mongoose = require("mongoose");
+const MongoStore = require("connect-mongo")(express);
 
 const app = express();
 
@@ -26,6 +29,16 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json());
 
+app.use(express.cookieParser());
+
+app.use(express.session({
+  secret: config.get('session:secret'), //SHA256
+  key: config.get('session:key'),
+  cookie: config.get('session:cookie'),
+  store: new MongoStore({mongoose_connection: mongoose.connection})
+}));
+
+
 router
   .route("/user")
   .get(userController.getAll)
@@ -43,6 +56,10 @@ router
 router
   .route("/user-grade/:id")
   .get(userController.getUserGrades);
+
+router
+  .route("/login")
+  .post()
 
 router
   .route("/course")
