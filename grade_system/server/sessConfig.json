@@ -1,0 +1,11 @@
+{
+    "session":{
+        "secret": "ShinigamiEatsAplles",
+        "key": "kira",
+        "coockie": {
+            "path": "/",
+            "httpOnly": true,
+            "maxAge": 86400000
+        }
+    }
+}

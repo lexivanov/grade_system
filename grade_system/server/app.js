@@ -1,16 +1,30 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const session = require("express-session");
+const MongoDBStore = require('connect-mongodb-session')(session);
+const mongoose = require("mongoose");
+
+const authController = require("./controllers/auth-controller");
 const statusController = require("./controllers/status-controller");
 const courseController = require("./controllers/course-controller");
 const taskController = require("./controllers/task-controller");
 const CTRController = require("./controllers/taskcourserelation-controller");
 const userController = require("./controllers/user-controller");
-const courseInfoController = require("./controllers/takeAllForCourse-controller")
+const courseInfoController = require("./controllers/takeAllForCourse-controller");
+
 
 const app = express();
 
 const router = express.Router();
-app.use(function(req, res, next) {
+const store = new MongoDBStore(
+  { ...mongoose.connection, collection: "sessions" }
+);
+
+store.on('error', function(error) {
+  console.log(error);
+});
+
+app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
@@ -25,6 +39,17 @@ app.use(function(req, res, next) {
 });
 
 app.use(bodyParser.json());
+
+app.use(session({
+  secret: "sisikret",
+  resave: true,
+  saveUninitialized: true,
+  store
+}));
+
+router
+  .route("/auth")
+  .post(authController.registration);
 
 router
   .route("/user")
