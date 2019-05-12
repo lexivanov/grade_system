@@ -6,9 +6,13 @@ const taskController = require("./controllers/task-controller");
 const CTRController = require("./controllers/taskcourserelation-controller");
 const userController = require("./controllers/user-controller");
 const courseInfoController = require("./controllers/takeAllForCourse-controller");
+const loginController = require("./controllers/login-controller");
+const registrationController = require("./controllers/registration-controller");
 const config = require("./config.json");
-const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo")(express);
+//const mongoose = require("mongoose");
+//const MongoStore = require("connect-mongo")(express);
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -29,13 +33,13 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json());
 
-app.use(express.cookieParser());
+app.use(cookieParser);
 
-app.use(express.session({
-  secret: config.get('session:secret'), //SHA256
-  key: config.get('session:key'),
-  cookie: config.get('session:cookie'),
-  store: new MongoStore({mongoose_connection: mongoose.connection})
+app.use(session({
+  secret: config.session.secret , //SHA256
+  key: config.session.key,
+  cookie: config.session.cookie
+  //store: new MongoStore({mongoose_connection: mongoose.connection})
 }));
 
 
@@ -59,7 +63,11 @@ router
 
 router
   .route("/login")
-  .post()
+  .post(loginController.login);
+
+router
+  .route("/registration")
+  .post(registrationController.registration);
 
 router
   .route("/course")
