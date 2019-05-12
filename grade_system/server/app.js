@@ -17,7 +17,7 @@ const app = express();
 
 const router = express.Router();
 const store = new MongoDBStore(
-  { ...mongoose.connection, collection: "sessions" }
+  {uri: 'mongodb://localhost/grade_sys' , collection: "sessions" }
 );
 
 store.on('error', function(error) {
@@ -50,6 +50,10 @@ app.use(session({
 router
   .route("/auth")
   .post(authController.registration);
+
+router
+  .route("/login")
+  .post(authController.login);
 
 router
   .route("/user")

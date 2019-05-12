@@ -28,8 +28,8 @@ schema.virtual('password')
   })
   .get(function() { return this._plainPassword; });
 
-schema.checkPassword = function(password){
-  return this.encryptPassword(password) === this.hashedPassword;
+schema.methods.checkPassword = function(password){
+  return this.encryptPassword(password) === this.passwordHash;  
 } 
 
 schema.set("toJSON", { virtuals: true });
