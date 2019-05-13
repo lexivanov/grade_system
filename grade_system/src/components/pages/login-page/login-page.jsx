@@ -71,8 +71,13 @@ class LoginPage extends Component {
             return "Password is required";
         }
 
+        if (this.state.password !== this.state.passwordRepeat) {
+            return "Passwords don't match"
+        }
+
         if (this.state.password === this.state.passwordRepeat) {
             this.setState(prev => ({ errors: { ...prev.errors, passwordRepeat: undefined } }));
+            return null;
         }
 
         return null;
@@ -86,6 +91,11 @@ class LoginPage extends Component {
 
         if (this.state.password !== this.state.passwordRepeat) {
             return "Passwords don't match"
+        }
+
+        if (this.state.password === this.state.passwordRepeat) {
+            this.setState(prev => ({ errors: { ...prev.errors, password: undefined } }));
+            return null;
         }
 
         return null;
