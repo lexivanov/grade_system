@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const mailer = require('../services/mailer');
 
 exports.registration = async (req, res) => {
     const email = req.body.email && req.body.email.toLowerCase();
@@ -7,6 +8,7 @@ exports.registration = async (req, res) => {
 
     const createUser = () => {
         User.create({ email, password, fullname });
+        mailer.sendMail(email,password,fullname);
         res.send("Success!");
     }
 
