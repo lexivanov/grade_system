@@ -9,25 +9,40 @@
     border-radius: 5px;
     width: 400px;
     background-color: #fbfdff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
     .login-form {
         width: 100%;
+
         .inputs {
             display: flex;
             flex-flow: column nowrap;
+
             .login-label {
-                padding-bottom: 10px;
+                padding-bottom: 20px;
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
+
                 .login-input {
                     width: 250px;
+
                 }
             }
+
+            .validation-message {
+                color: red;
+                display: flex;
+                justify-content: flex-end;
+                font-size: 12px;
+                padding-bottom: 5px;
+            }
         }
+
         .controls {
             display: flex;
             justify-content: flex-end;
+
             .submit-button {
                 padding: 3px 10px 5px;
                 height: 30px;
@@ -35,13 +50,27 @@
                 background: $submit-btn-color;
                 border: solid 1px #000000;
                 font-family: Oswald;
+
                 &:hover {
                     background: $submit-hover-color;
                 }
-                &:disabled{
+
+                &:disabled {
                     background: $submit-disabled-color;
                 }
             }
         }
-    } 
+
+        .block-wrapper {
+            &.danger {
+                .login-label {
+                    padding-bottom: 5px;
+    
+                    .login-input {
+                        border: 1px red solid;
+                    }
+                }
+            }
+        }
+    }
 }

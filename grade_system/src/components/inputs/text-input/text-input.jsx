@@ -14,7 +14,7 @@ export function TextInput(props) {
     return (
         <input
             className={props.className}
-            type='text'
+            type={props.type || 'text'}
             placeholder={props.placeholder}
             value={props.value}
             name={props.name}
@@ -32,6 +32,7 @@ TextInput.propTypes = {
     id:PropTypes.number,
     value: PropTypes.string,
     onChange: PropTypes.func,
-    onBlur: PropTypes.func
+    onBlur: PropTypes.func,
+    type: PropTypes.string
 };
 
