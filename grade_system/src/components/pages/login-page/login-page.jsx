@@ -71,7 +71,7 @@ class LoginPage extends Component {
             return "Password is required";
         }
 
-        if (this.state.password !== this.state.passwordRepeat) {
+        if ((this.state.password || this.state.passwordRepeat) && this.state.password !== this.state.passwordRepeat) {
             return "Passwords don't match"
         }
 
@@ -89,7 +89,7 @@ class LoginPage extends Component {
             return "Please repeat password";
         }
 
-        if (this.state.password !== this.state.passwordRepeat) {
+        if ((this.state.password || this.state.passwordRepeat) && this.state.password !== this.state.passwordRepeat) {
             return "Passwords don't match"
         }
 
