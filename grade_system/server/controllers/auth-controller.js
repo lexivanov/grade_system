@@ -31,7 +31,6 @@ exports.login = async (req, res) => {
 
     const getSuccess = (user) => {
         req.session.user = user._id;
-        req.session.cookie.user = user._id;
         res.status(200).send(user);
     }
 

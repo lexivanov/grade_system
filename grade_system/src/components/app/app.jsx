@@ -6,6 +6,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { fetchUsersList } from '../../store/user/actions';
 import { logout, easyLogin } from '../../store/auth/actions';
 import { Modal } from '../containers';
+import { Cookie } from '../../services';
 
 import './app.scss';
 
@@ -21,7 +22,7 @@ class App extends Component {
 
     componentDidMount = () => {
         this.props.getUsers();
-        const userId = window.sessionStorage.getItem("userId");
+        const userId = Cookie.getCookie('userId');
         userId && this.props.easyLogin(userId);
     }
  
@@ -37,7 +38,7 @@ class App extends Component {
         e.stopPropagation();
 
         await this.props.logout();
-        window.sessionStorage.removeItem("userId");
+        Cookie.deleteCoockie('userId');
         this.setState({ userMenuOpened: false });
     }
 
