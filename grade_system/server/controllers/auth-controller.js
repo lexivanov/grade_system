@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const mailer = require('../services/mailer');
+const mongoose = require("mongoose");
+
 
 exports.registration = async (req, res) => {
     const email = req.body.email && req.body.email.toLowerCase();
@@ -29,7 +31,7 @@ exports.login = async (req, res) => {
 
     const getSuccess = (user) => {
         req.session.user = user._id;
-        res.status(200).send("Success!");
+        res.status(200).send({user: req.session.user, session: req.session._id});
     }
 
     try {
@@ -43,4 +45,11 @@ exports.login = async (req, res) => {
     } catch (err) {
         res.status(500).json(err);
     }
+};
+
+exports.logout = async (req, res) =>{
+    req.session.destroy((err) => {
+        console.log('хуйня')
+        res.status(403).send(err);
+      })    
 };

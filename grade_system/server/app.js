@@ -42,8 +42,11 @@ app.use(bodyParser.json());
 
 app.use(session({
   secret: "sisikret",
-  resave: true,
-  saveUninitialized: true,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 3600000
+  },
   store
 }));
 
@@ -54,6 +57,10 @@ router
 router
   .route("/login")
   .post(authController.login);
+
+router
+  .route("/logout")
+  .post(authController.logout)
 
 router
   .route("/user")
