@@ -1,13 +1,18 @@
 import { actionTypes } from '../constants';
 import { AuthController } from '../../../services';
 
-export const getUser = () => dispatch => {
-    AuthController.getUser().then((resolve) => {
-        dispatch(getUserAction(resolve));
-    }).catch(() => {});
+export const login = (user) => dispatch => {
+    AuthController.login(user).then((resolve) => {
+        dispatch(loginAction(resolve));
+    }).catch((err) => setAuthError(err));
 };
 
-const getUserAction = (payload) => ({
-    type: actionTypes.getUser,
+const loginAction = (payload) => ({
+    type: actionTypes.login,
+    payload
+});
+
+const setAuthError = (payload) => ({
+    type: actionTypes.setError,
     payload
 });

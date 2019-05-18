@@ -1,3 +1,4 @@
 export const actionTypes = {
-    getUser: "GET_USER_AUTH"
+    login: "LOGIN",
+    setError: "SET_ERROR"
 };

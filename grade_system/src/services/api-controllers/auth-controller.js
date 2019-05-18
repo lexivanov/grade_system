@@ -58,7 +58,7 @@ export class AuthController {
                     }
                     else {
                         const user = xhr.responseText;
-                        resolve(user);
+                        resolve(JSON.parse(user));
                     }
                 }
             };

@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import './login-page.scss';
 import { TextInput } from '../../inputs';
 import { AuthController } from '../../../services/api-controllers/auth-controller';
+import { login } from '../../../store/auth/actions';
 
 class LoginPage extends Component {
 
@@ -143,7 +144,7 @@ class LoginPage extends Component {
         e.stopPropagation();
         const body = { email: this.state.email, password: this.state.password };
         try {
-            const response = await AuthController.login(body);
+            const response = await this.props.login(body);
             this.setState({ response });
         } catch (e) {
             this.setState({ response: e });
@@ -213,7 +214,6 @@ class LoginPage extends Component {
                         </div>
                     </form>
                 </div>
-                {this.state.response && <div className="response">{this.state.response}</div>}
             </Fragment>
         );
     }
@@ -222,8 +222,10 @@ class LoginPage extends Component {
 export default withRouter(connect(
     (state, ownProps) => ({
         courses: state.courseReducer.courses,
+        user: state.authReducer.user,
         ownProps
     }),
     dispatch => ({
+        login: (user) => dispatch(login(user))
     })
 )(LoginPage));

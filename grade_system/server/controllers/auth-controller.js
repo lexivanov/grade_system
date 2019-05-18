@@ -10,7 +10,7 @@ exports.registration = async (req, res) => {
 
     const createUser = () => {
         User.create({ email, password, fullname });
-        mailer.sendMail(email,password,fullname);
+        mailer.sendMail(email, password, fullname);
         res.status(200).send("Success!");
     }
 
@@ -31,16 +31,16 @@ exports.login = async (req, res) => {
 
     const getSuccess = (user) => {
         req.session.user = user._id;
-        res.status(200).send({user: req.session.user, session: req.session._id});
+        res.status(200).send(user);
     }
 
     try {
-    const user = await User.findOne({ email });
-    user
-        ? user.checkPassword(password, user.salt)
-            ? getSuccess(user)
-            : res.status(403).send("Incorrect password")
-     : res.status(403).send("User not found");
+        const user = await User.findOne({ email });
+        user
+            ? user.checkPassword(password, user.salt)
+                ? getSuccess(user)
+                : res.status(403).send("Incorrect password")
+            : res.status(403).send("User not found");
 
     } catch (err) {
         res.status(500).json(err);

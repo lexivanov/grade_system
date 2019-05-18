@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
-import { fetchUsersList } from '../../store/user/actions'
+import { fetchUsersList } from '../../store/user/actions';
 import { Modal } from '../containers';
 
 import './app.scss';
@@ -14,8 +14,8 @@ class App extends Component {
         getUsers: PropTypes.func
     }
 
-    state = { 
-        userMenuOpened: false 
+    state = {
+        userMenuOpened: false
     }
 
     componentDidMount() {
@@ -26,10 +26,29 @@ class App extends Component {
         e.preventDefault();
         e.stopPropagation();
 
-        this.setState(prev => ({userMenuOpened: !prev.userMenuOpened}));
+        this.setState(prev => ({ userMenuOpened: !prev.userMenuOpened }));
+    }
+
+    renderLoginLinks = () => {
+        return (
+            <>
+                <Link to={`/login`} className='user-menu-link' onClick={() => this.setState({ userMenuOpened: false })}>Sign in</Link>
+                <Link to={`/register`} className='user-menu-link' onClick={() => this.setState({ userMenuOpened: false })}>Sign up</Link>
+            </>
+        );
+    }
+    
+    renderLogoutLinks = () => {
+        return (
+            <>
+                <Link to={`/user/${this.props.user.id}`} className='user-menu-link' onClick={() => this.setState({ userMenuOpened: false })}>My account</Link>
+                <Link to={`/logout`} className='user-menu-link' onClick={() => this.setState({ userMenuOpened: false })}>Log out</Link>
+            </>
+        );
     }
 
     render() {
+        console.log(this.props.user);
         return (
             <div className='app'>
                 <div className='app-header'>
@@ -41,12 +60,11 @@ class App extends Component {
                         </nav>
                         <div className='user-menu'>
                             <div className='user-button' onClick={this.onUserButtonClick}>
-                                Current User
-                            <i className="fa fa-caret-down" aria-hidden="true"></i>
+                                {this.props.user ? this.props.user.fullname : "User Menu"}
+                                <i className="fa fa-caret-down" aria-hidden="true"></i>
                             </div>
                             {this.state.userMenuOpened === true && <div className='fake-dropdown'>
-                                <Link to={`/login`} className='user-menu-link' onClick={() => this.setState({userMenuOpened: false})}>Sign in</Link>
-                                <Link to={`/register`} className='user-menu-link' onClick={() => this.setState({userMenuOpened: false})}>Sign up</Link>
+                                {this.props.user ? this.renderLogoutLinks() : this.renderLoginLinks() }
                             </div>}
                         </div>
                     </div>
@@ -66,9 +84,10 @@ export default withRouter(connect(
     (state, ownprops) => ({
         store: state,
         modalContent: state.modalReducer.content,
+        user: state.authReducer.user,
         ...ownprops
     }),
     dispatch => ({
-        getUsers: () => dispatch(fetchUsersList()),
+        getUsers: () => dispatch(fetchUsersList())
     })
 )(App));
