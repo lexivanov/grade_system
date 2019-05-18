@@ -220,7 +220,7 @@ table {
 
 	.user-menu {
 		height: 100%;
-
+		position: relative;
 		.user-button {
 			display: inline-block;
 			height: 100%;
@@ -239,6 +239,24 @@ table {
 
 			&:hover {
 				background: $header-hover-color;
+			}
+		}
+
+		.fake-dropdown {
+			display: flex;
+			flex-flow: column nowrap;
+			background: #e0e0e0;
+			border: 1px solid #7c7c7c;
+			position: absolute;
+			top: 100%;
+			.user-menu-link{
+				width: 115px;
+				padding: 5px 10px;
+				text-decoration: none;
+				color: #000000;
+				&:hover{
+					background: #c2c2c2;
+				}
 			}
 		}
 	}

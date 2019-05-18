@@ -9,12 +9,29 @@ import { AuthController } from '../../../services/api-controllers/auth-controlle
 class LoginPage extends Component {
 
     state = {
+        isRegister: this.props.isRegister,
         response: undefined,
         name: undefined,
         password: undefined,
         passwordRepeat: undefined,
         email: undefined,
         errors: {}
+    }
+
+    componentDidUpdate = () => {
+        if (this.props.isRegister !== this.state.isRegister) {
+            this.setState({
+                isRegister: this.props.isRegister,
+                response: undefined,
+                name: '',
+                password: '',
+                passwordRepeat: '',
+                email: '',
+                errors: {}
+            });
+        }
+
+        return true;
     }
 
     onChange = (column, validate) => (value) => {
@@ -54,6 +71,8 @@ class LoginPage extends Component {
     }
 
     blurEmail = (value) => {
+        if (!this.props.isRegister) return null;
+
         if (!value) {
             return "Email is required";
         }
@@ -67,6 +86,8 @@ class LoginPage extends Component {
     }
 
     blurPassword = (value) => {
+        if (!this.props.isRegister) return null;
+
         if (!value) {
             return "Password is required";
         }

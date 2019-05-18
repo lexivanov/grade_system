@@ -9,7 +9,7 @@ exports.registration = async (req, res) => {
     const createUser = () => {
         User.create({ email, password, fullname });
         mailer.sendMail(email,password,fullname);
-        res.send("Success!");
+        res.status(200).send("Success!");
     }
 
     try {
@@ -29,7 +29,7 @@ exports.login = async (req, res) => {
 
     const getSuccess = (user) => {
         req.session.user = user._id;
-        res.send("Sucses!");
+        res.status(200).send("Success!");
     }
 
     try {

@@ -14,8 +14,19 @@ class App extends Component {
         getUsers: PropTypes.func
     }
 
+    state = { 
+        userMenuOpened: false 
+    }
+
     componentDidMount() {
         this.props.getUsers();
+    }
+
+    onUserButtonClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        this.setState(prev => ({userMenuOpened: !prev.userMenuOpened}));
     }
 
     render() {
@@ -29,10 +40,14 @@ class App extends Component {
                             <Link to={`/tasks`} className='header-link'>Tasks</Link>
                         </nav>
                         <div className='user-menu'>
-                            <div className='user-button'>
+                            <div className='user-button' onClick={this.onUserButtonClick}>
                                 Current User
                             <i className="fa fa-caret-down" aria-hidden="true"></i>
                             </div>
+                            {this.state.userMenuOpened === true && <div className='fake-dropdown'>
+                                <Link to={`/login`} className='user-menu-link' onClick={() => this.setState({userMenuOpened: false})}>Sign in</Link>
+                                <Link to={`/register`} className='user-menu-link' onClick={() => this.setState({userMenuOpened: false})}>Sign up</Link>
+                            </div>}
                         </div>
                     </div>
                 </div>
