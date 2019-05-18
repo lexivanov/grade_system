@@ -105,7 +105,9 @@ section {
 }
 
 html,
-body, #root, .app  {
+body,
+#root,
+.app {
 	height: 100%;
 }
 
@@ -184,6 +186,7 @@ table {
 	width: 100%;
 	height: 40px;
 	top: 0;
+	z-index: 2;
 	left: 0;
 	position: fixed;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -221,6 +224,7 @@ table {
 	.user-menu {
 		height: 100%;
 		position: relative;
+
 		.user-button {
 			display: inline-block;
 			height: 100%;
@@ -248,13 +252,21 @@ table {
 			background: #e0e0e0;
 			border: 1px solid #7c7c7c;
 			position: absolute;
+			z-index: 3;
 			top: 100%;
-			.user-menu-link{
+
+			.user-menu-link {
 				width: 115px;
 				padding: 5px 10px;
 				text-decoration: none;
+				border: 0;
 				color: #000000;
-				&:hover{
+				background: #e0e0e0;
+				font-family: Oswald;
+				font-size: 14px;
+				text-align: left;
+
+				&:hover {
 					background: #c2c2c2;
 				}
 			}

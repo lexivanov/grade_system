@@ -31,6 +31,7 @@ exports.login = async (req, res) => {
 
     const getSuccess = (user) => {
         req.session.user = user._id;
+        req.session.cookie.user = user._id;
         res.status(200).send(user);
     }
 
@@ -49,7 +50,6 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) =>{
     req.session.destroy((err) => {
-        console.log('хуйня')
-        res.status(403).send(err);
-      })    
+        res.status(403).send(err || "error while logout");
+    });    
 };

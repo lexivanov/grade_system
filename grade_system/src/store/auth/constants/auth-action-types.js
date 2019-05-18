@@ -1,4 +1,5 @@
 export const actionTypes = {
     login: "LOGIN",
-    setError: "SET_ERROR"
+    setError: "SET_ERROR",
+    logout: "LOGOUT",
 };

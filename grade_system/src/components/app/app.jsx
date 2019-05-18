@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 
 import { fetchUsersList } from '../../store/user/actions';
+import { logout, easyLogin } from '../../store/auth/actions';
 import { Modal } from '../containers';
 
 import './app.scss';
@@ -18,15 +19,26 @@ class App extends Component {
         userMenuOpened: false
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.props.getUsers();
+        const userId = window.sessionStorage.getItem("userId");
+        userId && this.props.easyLogin(userId);
     }
-
+ 
     onUserButtonClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
 
         this.setState(prev => ({ userMenuOpened: !prev.userMenuOpened }));
+    }
+
+    onlogout = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        await this.props.logout();
+        window.sessionStorage.removeItem("userId");
+        this.setState({ userMenuOpened: false });
     }
 
     renderLoginLinks = () => {
@@ -37,12 +49,12 @@ class App extends Component {
             </>
         );
     }
-    
+
     renderLogoutLinks = () => {
         return (
             <>
                 <Link to={`/user/${this.props.user.id}`} className='user-menu-link' onClick={() => this.setState({ userMenuOpened: false })}>My account</Link>
-                <Link to={`/logout`} className='user-menu-link' onClick={() => this.setState({ userMenuOpened: false })}>Log out</Link>
+                <button className='user-menu-link' onClick={this.onlogout}>Log out</button>
             </>
         );
     }
@@ -64,7 +76,7 @@ class App extends Component {
                                 <i className="fa fa-caret-down" aria-hidden="true"></i>
                             </div>
                             {this.state.userMenuOpened === true && <div className='fake-dropdown'>
-                                {this.props.user ? this.renderLogoutLinks() : this.renderLoginLinks() }
+                                {this.props.user ? this.renderLogoutLinks() : this.renderLoginLinks()}
                             </div>}
                         </div>
                     </div>
@@ -85,9 +97,12 @@ export default withRouter(connect(
         store: state,
         modalContent: state.modalReducer.content,
         user: state.authReducer.user,
+        tmpUser: state.userReducer.user,
         ...ownprops
     }),
     dispatch => ({
-        getUsers: () => dispatch(fetchUsersList())
+        getUsers: () => dispatch(fetchUsersList()),
+        logout: () => dispatch(logout()),
+        easyLogin: (id) => dispatch(easyLogin(id))
     })
 )(App));
