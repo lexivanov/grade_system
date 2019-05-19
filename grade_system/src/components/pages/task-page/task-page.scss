@@ -3,6 +3,7 @@
 .task-page {
     width: 100%;
     position: relative;
+    padding-top: 10px;
 
     .task-info-wrapper {
         margin: 0 0 20px 280px;
@@ -44,7 +45,7 @@
     }
 
     .controls {
-        margin: 10px 0;
+        margin-bottom: 10px;
         min-width: 700px;
         display: flex;
         justify-content: flex-end;

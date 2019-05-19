@@ -6,7 +6,7 @@ import { withRouter, Link } from 'react-router-dom';
 import { fetchUsersList } from '../../store/user/actions';
 import { logout, easyLogin } from '../../store/auth/actions';
 import { Modal } from '../containers';
-import { Cookie } from '../../services';
+import { Cookie, inPermissionBase } from '../../services';
 
 import './app.scss';
 
@@ -72,21 +72,25 @@ class App extends Component {
     renderLogoutLinks = () => {
         return (
             <>
-                <Link to={`/user/${this.props.user.id}`} className='user-menu-link' onClick={() => this.setState({ userMenuOpened: false })}>My account</Link>
+                <button className='user-menu-link' onClick={() => { document.location.replace(`/user/${this.props.user.id}`)} }>My account</button>
                 <button className='user-menu-link' onClick={this.onlogout}>Log out</button>
             </>
         );
     }
 
     render() {
+        const inPermission = inPermissionBase(this.props.user);
         return (
             <div className='app'>
                 <div className='app-header'>
                     {this.props.user && <div className='app-header-content'>
                         <nav className='app-nav'>
-                            <Link to={`/main`} className='header-link'>Courses</Link>
+                            {(!inPermission('student') || this.props.user.courseId)
+                                && <Link to={inPermission('student') ? `/course/${this.props.user.courseId}` : `/main`} className='header-link'>
+                                    Course{inPermission('student') ? '' : 's'}
+                                </Link>}
                             <Link to={`/users`} className='header-link'>Users</Link>
-                            <Link to={`/tasks`} className='header-link'>Tasks</Link>
+                            {!inPermission('student') && <Link to={`/tasks`} className='header-link'>Tasks</Link>}
                         </nav>
                         <div className='user-menu'>
                             <div className='user-button' onClick={this.onUserButtonClick}>

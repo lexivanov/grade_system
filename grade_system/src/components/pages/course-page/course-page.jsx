@@ -6,7 +6,7 @@ import { fetchCourseInfo, setGrade, addOrEditUser } from '../../../store/course'
 import { AddTaskForm } from '../../forms';
 import './course-page.scss';
 import { showModal } from '../../../store/modal';
-import { avoidUnauthorized } from '../../../services';
+import { avoidUnauthorized, inPermissionBase } from '../../../services';
 
 class CoursePage extends Component {
     flag = true;
@@ -58,32 +58,29 @@ class CoursePage extends Component {
     }
 
     render() {
+        const inPermission = inPermissionBase(this.props.authUser)('admin', 'teacher');
+
         return avoidUnauthorized() || (this.props.users ? (
             <div className='course-page-wrapper'>
                 <div className='add-user-block'>
                     <div className='course-name'>{this.props.course.name}</div>
-                    <div className='add-user-wrapper'>
-                        <input value={this.state.userName} onChange={(evt) => this.setState({ userName: evt.target.value })} className='add-user-input' type='text' />
-                        <button className='add-user-button' onClick={this.onAddNewUser} disabled={!this.state.userName}>Add user</button>
-                    </div>
                 </div>
                 <div className='course-wrapper'>
                     <LeftSide />
                     <MiddlePart
+                        canEdit={inPermission}
                         onChangeGrade={this.onChangeGrade}
                         tasks={this.props.tasks}
                         grades={this.props.grades}
                         users={this.props.users.filter(user => user.courseId === this.id)} />
                     <RightSide
+                        canEdit={inPermission}
                         users={this.props.users.filter(user => user.courseId === this.id)}
                         statuses={this.props.statuses}
                         onChangeStatus={this.setStatus}
                         onChangeProject={this.setProject}
                         onChangeComment={this.setComment}
                     />
-                </div>
-                <div className='add-task-block'>
-                    <button className='add-task-button' onClick={this.onAddNewTask}>Add task</button>
                 </div>
             </div>
         ) : <div className='course-wrapper' />);
@@ -98,6 +95,7 @@ const idResolver = (pathName) => {
 export default withRouter(connect(
     (state, ownProps) => ({
         users: state.courseReducer.currentCourseInfo.users,
+        authUser: state.authReducer.user,
         tasks: state.courseReducer.currentCourseInfo.tasks,
         grades: state.courseReducer.currentCourseInfo.grades,
         statuses: state.courseReducer.currentCourseInfo.statuses,

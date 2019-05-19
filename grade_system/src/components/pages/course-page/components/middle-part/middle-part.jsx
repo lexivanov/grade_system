@@ -11,7 +11,8 @@ export class MiddlePart extends Component {
         tasks: PropTypes.array,
         users: PropTypes.array,
         grades: PropTypes.array,
-        onChangeGrade: PropTypes.func
+        onChangeGrade: PropTypes.func,
+        canEdit: PropTypes.bool,
     }
 
     render() {
@@ -31,6 +32,7 @@ export class MiddlePart extends Component {
                             };
                             return (
                                 <NumberCell
+                                    canEdit={this.props.canEdit}
                                     key={user.id}
                                     className='user-grade-cell middle-cell'
                                     style={{ backgroundColor: color }}

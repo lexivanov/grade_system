@@ -134,8 +134,8 @@ class LoginPage extends Component {
         e.stopPropagation();
         const body = { email: this.state.email, fullname: this.state.name, password: this.state.password };
         try {
-            const response = await AuthController.register(body);
-            this.setState({ response, registred: "We have send an email to your address to verify. Please check it before" });
+            await AuthController.register(body);
+            this.setState({ registred: "We have send an email to your address to verify. Please check it before" });
         } catch (e) {
             this.setState({ response: e });
         }
@@ -146,8 +146,8 @@ class LoginPage extends Component {
         e.stopPropagation();
         const body = { email: this.state.email, password: this.state.password };
         try {
-            const response = await this.props.login(body);
-            this.setState({ response, redirect: '/main' });
+            await this.props.login(body);
+            this.setState({ redirect: '/main' });
         } catch (e) {
             this.setState({ response: e });
         }

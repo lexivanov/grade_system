@@ -4,8 +4,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { loadTasks, deleteTask } from '../../../store/task';
 import { AddTaskForm } from '../../forms';
 import { showModal } from '../../../store/modal';
-import { avoidUnauthorized } from '../../../services';
- 
+import { avoidUnauthorized, inPermissionBase } from '../../../services';
+
 import './task-list-page.scss';
 
 class TaskListPage extends Component {
@@ -18,20 +18,21 @@ class TaskListPage extends Component {
     }
 
     render() {
+        const inPermission = inPermissionBase(this.props.authUser);
         return avoidUnauthorized() || (
             <Fragment>
-                <div className='add-task-block'>
+                {inPermission('admin') && <div className='add-task-block'>
                     <button className='add-task-button' onClick={this.onAddNewTask}>Add task</button>
-                </div>
+                </div>}
                 <div className='task-list-page-wrapper'>
                     {this.props.tasks.map(task => (
                         <div key={task.id} className='link-wrapper'>
                             <div className='task-link-container'>
                                 <Link to={`/task/${task.id}`} className='task-link'>{task.name}</Link>
                             </div>
-                            <div className='delete-button'>
+                            {inPermission('admin') && <div className='delete-button'>
                                 <button className='delete-button' onClick={() => this.props.deleteTask(task.id)}>X</button>
-                            </div>
+                            </div>}
                         </div>
                     ))}
                 </div>
@@ -43,6 +44,7 @@ class TaskListPage extends Component {
 export default withRouter(connect(
     (state, ownProps) => ({
         tasks: state.taskReducer.taskList,
+        authUser: state.authReducer.user,
         ownProps
     }),
     dispatch => ({

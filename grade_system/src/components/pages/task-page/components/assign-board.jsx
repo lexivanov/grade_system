@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import './assign-board.scss';
 import { fetchCourseList } from '../../../../store/course';
 import { loadTaskCourses, assignTask, disassignTask } from '../../../../store/task'
+import { inPermissionBase } from '../../../../services';
 
 class AssignBoard extends Component {
     static propTypes = {
@@ -15,6 +16,7 @@ class AssignBoard extends Component {
         courses: PropTypes.array,
         getCourses: PropTypes.func,
         getAssigned: PropTypes.func,
+        canEdit: PropTypes.bool,
     }
 
     flag = true;
@@ -31,13 +33,18 @@ class AssignBoard extends Component {
     }
 
     render() {
-        return this.props.assigned && this.props.courses ? (
+        if (!this.props.assigned || !this.props.courses) return null;
+
+        const inPermission = inPermissionBase(this.props.user);
+        const ddl = this.getDdlList();
+        return (
             <div className='assign-board'>
-                <div className='assign-dropdown'>
+                <div className='title'>Associated courses</div>
+                {this.props.canEdit && ddl.length > 1 && <div className='assign-dropdown'>
                     <DropDownInput
                         ref={ref => this.ddlRef = ref}
                         className='assign-board-dropdown'
-                        items={this.getDdlList()}
+                        items={ddl}
                         onChange={(x) => this.setState({ selectedCourse: x.id })}
                     />
                     <ButtonWithText
@@ -45,17 +52,17 @@ class AssignBoard extends Component {
                         disabled={this.state.selectedCourse == null}
                         onClick={this.onAssign}
                     />
-                </div>
+                </div>}
                 <div className='assigned-list'>
                     {this.props.assigned.map(x => (
                         <div key={x.id} className='assigned-item'>
-                            <Link to={`/course/${x.id}`} className='course-link'>{x.name}</Link>
-                            <button className='delete-button' onClick={() => this.onDisAssign(x)}>X</button>
+                            {inPermission('student') ? <div className='course-link unclickable'>{x.name}</div> : <Link to={`/course/${x.id}`} className='course-link'>{x.name}</Link>}
+                            {this.props.canEdit && <button className='delete-button' onClick={() => this.onDisAssign(x)}>X</button>}
                         </div>
                     ))}
                 </div>
             </div>
-        ) : null;
+        );
     }
 
     getDdlList = () => {
@@ -83,7 +90,8 @@ export default withRouter(connect(
     (state, ownProps) => ({
         ownProps,
         assigned: state.taskReducer.assignedCourses,
-        courses: state.courseReducer.courses
+        courses: state.courseReducer.courses,
+        user: state.authReducer.user
     }),
     dispatch => ({
         getCourses: () => dispatch(fetchCourseList()),

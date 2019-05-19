@@ -7,3 +7,12 @@ export const avoidUnauthorized = () => {
 
     return !user ? <Redirect to={'/lobby'} /> : null;
 }
+
+export const inPermissionBase = (user) => (...perms) => {
+    console.log(perms);
+    if (!user) return false;
+    perms.forEach(x => {
+        console.log(user.role, x);
+    });
+    return perms.some(x => user.role === x);
+}

@@ -12,6 +12,7 @@ export class RightSide extends Component {
         onChangeStatus: PropTypes.func,
         onChangeProject: PropTypes.func,
         onChangeComment: PropTypes.func,
+        canEdit: PropTypes.bool,
     }
 
     state = { selectedStatuses: {} }
@@ -27,9 +28,23 @@ export class RightSide extends Component {
                 </div>
                 {this.props.users.map(user =>
                     (<div className='right-user-row' key={user.id}>
-                        <DropDownCell className='user-status right-cell' user={user} value={user.statusId ? this.props.statuses.find(x => x.id === user.statusId) : null} onChange={this.props.onChangeStatus} items={this.props.statuses}/>
-                        <TextCell className='user-project right-cell' value={user.project || ''} onChange={(value) => this.props.onChangeProject(user.id, value)}/>
-                        <TextCell className='user-comment right-cell' value={user.comment || ''} onChange={(value) => this.props.onChangeComment(user.id, value)}/>
+                        <DropDownCell
+                            canEdit={this.props.canEdit}
+                            className='user-status right-cell'
+                            user={user}
+                            value={user.statusId ? this.props.statuses.find(x => x.id === user.statusId) : null}
+                            onChange={this.props.onChangeStatus}
+                            items={this.props.statuses} />
+                        <TextCell
+                            canEdit={this.props.canEdit}
+                            className='user-project right-cell'
+                            value={user.project || ''}
+                            onChange={(value) => this.props.onChangeProject(user.id, value)} />
+                        <TextCell
+                            canEdit={this.props.canEdit}
+                            className='user-comment right-cell'
+                            value={user.comment || ''}
+                            onChange={(value) => this.props.onChangeComment(user.id, value)} />
                     </div>))}
             </div>
         );

@@ -8,6 +8,7 @@ export class NumberCell extends Component {
         style: PropTypes.object,
         value: PropTypes.any,
         onChange: PropTypes.func,
+        canEdit: PropTypes.bool,
     }
 
     inputRef = null;
@@ -47,6 +48,7 @@ export class NumberCell extends Component {
     }
 
     onClick = async () => {
+        if (!this.props.canEdit) return;
         await this.setState({ isInEditMode: true });
         this.inputRef.focus();
     }

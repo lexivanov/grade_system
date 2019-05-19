@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { fetchCourseList } from '../../../store/course';
-import { avoidUnauthorized } from '../../../services';
+import { avoidUnauthorized, inPermissionBase } from '../../../services';
 
 import './main-page.scss';
 
@@ -12,6 +12,7 @@ class MainPage extends Component {
     }
 
     render() {
+        if (this.props.user && inPermissionBase(this.props.user)('student')) return <Redirect to={`/user/${this.props.user.id}`}/>;
         return avoidUnauthorized() || (
             <div className='main-wrapper'>
                 {this.props.courses.map(course => (
@@ -28,6 +29,7 @@ class MainPage extends Component {
 export default withRouter(connect(
     (state, ownProps) => ({
         courses: state.courseReducer.courses,
+        user: state.authReducer.user,
         ownProps
     }),
     dispatch => ({

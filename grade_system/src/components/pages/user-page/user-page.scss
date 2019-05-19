@@ -14,9 +14,9 @@
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
-    .assign-board {
+    .assign-user-board {
         position: absolute;
-        height: 303px;
+        height: 100px;
         padding: 20px;
         border: solid 1px #d0d3d6;
         border-radius: 5px;
@@ -80,7 +80,7 @@
         width: 100%;
         margin-top: 10px;
 
-        &.description {
+        &.comment {
             resize: none;
             height: 198px;
 

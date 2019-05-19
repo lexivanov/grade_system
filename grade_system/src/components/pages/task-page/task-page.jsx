@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { loadTask, addEditTask } from '../../../store/task';
 import { TextInput, Textarea } from '../../../components';
@@ -8,7 +8,7 @@ import { TextInput, Textarea } from '../../../components';
 import './task-page.scss';
 import { ButtonWithText } from '../../buttons';
 import { AssignBoard } from './components';
-import { avoidUnauthorized } from '../../../services';
+import { avoidUnauthorized, inPermissionBase } from '../../../services';
 
 class TaskPage extends Component {
     static propTypes = {
@@ -67,31 +67,37 @@ class TaskPage extends Component {
     }
 
     render() {
+        if (this.state.redirect) return <Redirect to={this.state.redirect}/>;
+        const inPermission = inPermissionBase(this.props.user);
+
         return avoidUnauthorized() || (
             <div className='task-page'>
                 <div className='controls'>
-                    {this.state.editMode
-                        ? <Fragment>
-                            <ButtonWithText
-                                type='button'
-                                className='cancel-button btn'
-                                text='CANCEL'
-                                onClick={this.onCancel}
-                            /> <ButtonWithText
-                                type='button'
-                                className='apply-button btn'
-                                text='APPLY'
-                                onClick={this.onApply}
-                            />
-                        </Fragment>
-                        : <ButtonWithText
-                            type='button'
-                            className='edit-button btn'
-                            text='EDIT'
-                            onClick={this.onEdit}
-                        />}
+                    {inPermission('admin')
+                        && <>
+                            {this.state.editMode
+                                ? <Fragment>
+                                    <ButtonWithText
+                                        type='button'
+                                        className='cancel-button btn'
+                                        text='CANCEL'
+                                        onClick={this.onCancel}
+                                    /> <ButtonWithText
+                                        type='button'
+                                        className='apply-button btn'
+                                        text='APPLY'
+                                        onClick={this.onApply}
+                                    />
+                                </Fragment>
+                                : <ButtonWithText
+                                    type='button'
+                                    className='edit-button btn'
+                                    text='EDIT'
+                                    onClick={this.onEdit}
+                                />}
+                        </>}
                 </div>
-                <AssignBoard />
+                <AssignBoard canEdit={inPermission('admin')} />
                 <div className='task-info-wrapper'>
                     <div className='task-wrapper name'>
                         {this.state.editMode
@@ -132,6 +138,7 @@ const idResolver = (pathName) => {
 export default withRouter(connect(
     (state, ownProps) => ({
         task: state.taskReducer.task,
+        user: state.authReducer.user,
         ownProps
     }),
     dispatch => ({
