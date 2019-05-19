@@ -4,5 +4,7 @@ export const actionTypes = {
     loadCourseTasks: 'LOAD_COURSE_TASKS',
     setGrade: 'SET_GRADE_FROM_COURSE',
     setStatus: 'SET_STATUS_FROM_COURSE',
-    addOrEditUser: 'ADD_NEW_USER_TO_COURSE'
+    addOrEditUser: 'ADD_NEW_USER_TO_COURSE',
+    addOrEdit: 'ADD_NEW_COURSE',
+    deleteCourse: 'DELETE_COURSE',
 };

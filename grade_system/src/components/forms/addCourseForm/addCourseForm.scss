@@ -1,0 +1,27 @@
+.add-course-form {
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0 10px 10px;
+
+    .add-course-label {
+        display: flex;
+        padding: 0 0 10px;
+
+        .add-course-label-text {
+            width: 100px;
+        }
+
+        .add-course-label-text {
+            width: 100px;
+        }
+
+        .add-course-input {
+            width: 100%;
+            resize: none;
+        }
+
+        .description {
+            height: 200px;
+        }
+    }
+}

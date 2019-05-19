@@ -1,1 +1,2 @@
-export { default as AddTaskForm } from './addTaskForm';
+export * from './addTaskForm';
+export * from './addCourseForm';
