@@ -6,6 +6,7 @@ import { fetchCourseInfo, setGrade, addOrEditUser } from '../../../store/course'
 import { AddTaskForm } from '../../forms';
 import './course-page.scss';
 import { showModal } from '../../../store/modal';
+import { avoidUnauthorized } from '../../../services';
 
 class CoursePage extends Component {
     flag = true;
@@ -57,7 +58,7 @@ class CoursePage extends Component {
     }
 
     render() {
-        return this.props.users ? (
+        return avoidUnauthorized() || (this.props.users ? (
             <div className='course-page-wrapper'>
                 <div className='add-user-block'>
                     <div className='course-name'>{this.props.course.name}</div>
@@ -85,7 +86,7 @@ class CoursePage extends Component {
                     <button className='add-task-button' onClick={this.onAddNewTask}>Add task</button>
                 </div>
             </div>
-        ) : <div className='course-wrapper' />;
+        ) : <div className='course-wrapper' />);
     }
 }
 

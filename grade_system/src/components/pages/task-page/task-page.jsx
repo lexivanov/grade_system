@@ -8,6 +8,7 @@ import { TextInput, Textarea } from '../../../components';
 import './task-page.scss';
 import { ButtonWithText } from '../../buttons';
 import { AssignBoard } from './components';
+import { avoidUnauthorized } from '../../../services';
 
 class TaskPage extends Component {
     static propTypes = {
@@ -66,7 +67,7 @@ class TaskPage extends Component {
     }
 
     render() {
-        return (
+        return avoidUnauthorized() || (
             <div className='task-page'>
                 <div className='controls'>
                     {this.state.editMode

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchCourseList } from '../../../store/course';
+import { avoidUnauthorized } from '../../../services';
 
 import './main-page.scss';
 
@@ -11,7 +12,7 @@ class MainPage extends Component {
     }
 
     render() {
-        return (
+        return avoidUnauthorized() || (
             <div className='main-wrapper'>
                 {this.props.courses.map(course => (
                     <div key={course.id} className='link-wrapper'>

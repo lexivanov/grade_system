@@ -4,7 +4,8 @@ import { Link, withRouter } from 'react-router-dom';
 import { loadTasks, deleteTask } from '../../../store/task';
 import { AddTaskForm } from '../../forms';
 import { showModal } from '../../../store/modal';
-
+import { avoidUnauthorized } from '../../../services';
+ 
 import './task-list-page.scss';
 
 class TaskListPage extends Component {
@@ -17,7 +18,7 @@ class TaskListPage extends Component {
     }
 
     render() {
-        return (
+        return avoidUnauthorized() || (
             <Fragment>
                 <div className='add-task-block'>
                     <button className='add-task-button' onClick={this.onAddNewTask}>Add task</button>

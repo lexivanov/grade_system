@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchUsersList, deleteUser } from '../../../store/user';
+import { avoidUnauthorized } from '../../../services';
 
 import './users-page.scss';
 
@@ -11,7 +12,7 @@ class UsersPage extends Component {
     }
 
     render() {
-        return (
+        return avoidUnauthorized() || (
             <div className='users-page-wrapper'>
                 {this.props.users.map(user => (
                     <div key={user.id} className='link-wrapper'>
