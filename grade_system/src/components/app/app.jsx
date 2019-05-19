@@ -17,7 +17,9 @@ class App extends Component {
     }
 
     state = {
-        userMenuOpened: false
+        userMenuOpened: false,
+        mouseIn: false,
+        redirect: undefined
     }
 
     componentDidMount = () => {
@@ -25,11 +27,26 @@ class App extends Component {
         const userId = Cookie.getCookie('userId');
         userId && this.props.easyLogin(userId);
     }
- 
+
+    onClick = async () => {
+        await this.setState({ isInEditMode: true });
+        this.inputRef.focus();
+        document.addEventListener("click", this.onBlur, false);
+    }
+
+    onBlur = (force) => {
+        if (this.state.mouseInside) {
+            return;
+        }
+        this.setState({ userMenuOpened: false });
+        document.removeEventListener("click", this.onBlur, false);
+    }
+
     onUserButtonClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
 
+        document.addEventListener("click", this.onBlur, false);
         this.setState(prev => ({ userMenuOpened: !prev.userMenuOpened }));
     }
 
@@ -40,6 +57,7 @@ class App extends Component {
         await this.props.logout();
         Cookie.deleteCoockie('userId');
         this.setState({ userMenuOpened: false });
+        document.location.replace("/lobby");
     }
 
     renderLoginLinks = () => {
@@ -61,11 +79,10 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.props.user);
         return (
             <div className='app'>
                 <div className='app-header'>
-                    <div className='app-header-content'>
+                    {this.props.user && <div className='app-header-content'>
                         <nav className='app-nav'>
                             <Link to={`/main`} className='header-link'>Courses</Link>
                             <Link to={`/users`} className='header-link'>Users</Link>
@@ -76,11 +93,16 @@ class App extends Component {
                                 {this.props.user ? this.props.user.fullname : "User Menu"}
                                 <i className="fa fa-caret-down" aria-hidden="true"></i>
                             </div>
-                            {this.state.userMenuOpened === true && <div className='fake-dropdown'>
-                                {this.props.user ? this.renderLogoutLinks() : this.renderLoginLinks()}
-                            </div>}
+                            {this.state.userMenuOpened === true
+                                && <div
+                                    className='fake-dropdown'
+                                    onMouseEnter={() => this.setState({ mouseIn: true })}
+                                    onMouseLeave={() => this.setState({ mouseIn: false })}
+                                >
+                                    {this.props.user ? this.renderLogoutLinks() : this.renderLoginLinks()}
+                                </div>}
                         </div>
-                    </div>
+                    </div>}
                 </div>
                 <div className='body-container'>
                     {this.props.children}

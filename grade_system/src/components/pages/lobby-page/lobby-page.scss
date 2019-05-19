@@ -1,0 +1,36 @@
+@import '../../../constants/application-colors.scss';
+
+.lobby-wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 20px auto 0;
+    padding: 20px;
+    border: solid 1px #d0d3d6;
+    border-radius: 5px;
+    width: 400px;
+    background-color: #fbfdff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+    p {
+        text-align: center;
+        font-size: 16px;
+        &.margin {
+            margin-bottom: 10px;
+        }
+    }
+
+    .lobby-link {
+        text-align: center;
+        border: 1px black solid;
+        padding: 5px 0;
+        text-decoration: none;
+        color: $header-color;
+        &:hover {
+            color: $header-hover-color;
+            background-color: #f0f0f0;
+        }
+        &:last-child {
+            border-top: none;
+        }
+    }
+}

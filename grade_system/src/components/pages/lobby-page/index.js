@@ -1,0 +1,1 @@
+export {default as LobbyPage} from './lobby-page';

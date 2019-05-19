@@ -65,12 +65,20 @@
             &.danger {
                 .login-label {
                     padding-bottom: 5px;
-    
+
                     .login-input {
                         border: 1px red solid;
                     }
                 }
             }
+        }       
+    }
+
+    .link {
+        color: $link-color;
+        text-decoration: none;
+        &:hover {
+            color: $link-hover-color;
         }
     }
 }
