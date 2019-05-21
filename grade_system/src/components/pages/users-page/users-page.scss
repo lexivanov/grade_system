@@ -1,25 +1,33 @@
+
+
 .users-page-wrapper {
-    margin: 20px auto 0;
+    margin: 10px auto 0;
     padding: 20px;
     border: solid 1px #d0d3d6;
     border-radius: 5px;
-    width: 50%;
+    width: 600px;
     background-color: #fbfdff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    
+    .filter {
+        margin-bottom: 10px;
+    }
 
     .link-wrapper {
         margin: 0 auto;
         padding: 7px;
+        height: 55px;
         border: solid 1px #828486;
-        border-top: 0;
+        border-bottom: 0;
         background-color: #f7f7f7;
+        position: relative;
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: space-between;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
 
-        &:first-child{
-            border-top: solid 1px #828486;
+        &:last-child {
+            border-bottom: solid 1px #828486;
         }
 
         .user-link {
@@ -27,30 +35,80 @@
             font-weight: none;
             font-size: 20px;
             color: #000000;
-            
-            &:hover, &:active{
+
+            &:hover,
+            &:active {
                 color: #ff0000;
             }
-          
         }
 
-        .username-container { 
+        .course-container {
+            color: #828486;
+            font-size: 12px;
+
+        }
+
+        .username-container {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: space-between;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-right: auto;
+            height: 100%;
         }
 
-        .delete-button{
+        .delete-button {
             font-weight: none;
             color: #BD5656;
             border: none;
             font-size: 15px;
             background-color: #f7f7f7;
-            &:hover, &:active{
+
+            &:hover,
+            &:active {
                 font-weight: bolder;
                 color: #ff0000;
                 text-shadow: 0px 0px 1px #ff0000;
             }
-        }        
+        }
+
+        .role-container {
+            .role-dropdown {
+                width: 60px;
+                cursor: pointer;
+
+                &.disabled {
+                    cursor: default;
+                }
+
+                .drop-down-view {
+                    text-align: center;
+                }
+
+                .drop-down-content {
+                    height: auto;
+                    margin: 0;
+                    width: 100%
+                }
+
+                .drop-down-edit {
+                    width: 63px;
+                    top: -1px;
+                }
+
+                .drop-down-item {
+                    width: 100%;
+                }
+
+                .drop-down-input {
+                    margin-top: -2px;
+                    outline: none;
+                    border: 1px solid black;
+                    padding-left: 2px;
+                }
+            }
+        }
     }
 }

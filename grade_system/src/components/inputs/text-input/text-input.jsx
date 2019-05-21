@@ -24,7 +24,6 @@ export function TextInput(props) {
     );
 }
 
-
 TextInput.propTypes = {
     className: PropTypes.string,
     placeholder: PropTypes.string,

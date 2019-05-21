@@ -27,15 +27,19 @@
     background-color: #fbfdff;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 
+    .filter {
+        margin-bottom: 10px;
+    }
+
     .link-wrapper {
         position: relative;
         margin: 0 auto;
         padding: 20px;
         border: solid 1px #828486;
-        border-top: 0;
+        border-bottom: 0;
         background-color: #f7f7f7;
-        &:first-child{
-            border-top: solid 1px #828486;
+        &:last-child{
+            border-bottom: solid 1px #828486;
         }
         .course-link {
             text-decoration: none;

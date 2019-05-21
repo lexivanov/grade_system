@@ -146,8 +146,8 @@ class LoginPage extends Component {
         e.stopPropagation();
         const body = { email: this.state.email, password: this.state.password };
         try {
-            await this.props.login(body);
-            this.setState({ redirect: '/main' });
+            const res = await this.props.login(body);
+            this.setState({ redirect: '/main' }, () => console.log(res));
         } catch (e) {
             this.setState({ response: e });
         }

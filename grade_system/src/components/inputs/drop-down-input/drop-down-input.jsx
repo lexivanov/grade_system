@@ -10,6 +10,7 @@ export class DropDownInput extends Component {
         value: PropTypes.any,
         onChange: PropTypes.func,
         items: PropTypes.array,
+        disabled: PropTypes.bool
     }
 
     inputRef = null;
@@ -18,12 +19,12 @@ export class DropDownInput extends Component {
 
     render() {
         return (
-            <div className={`drop-down-input ${this.props.className}`}
+            <div className={`drop-down-input ${this.props.className} ${this.props.disabled ? "disabled" : null}`}
                 onMouseEnter={() => this.setState({ mouseInside: true })}
                 onMouseLeave={() => this.setState({ mouseInside: false })}>
                 <div
                     className='drop-down-view'
-                    onClick={this.onClick}>
+                    onClick={this.props.disabled ? undefined : this.onClick}>
                     <span>{
                         this.state.currentValue
                             ? this.state.currentValue.name
