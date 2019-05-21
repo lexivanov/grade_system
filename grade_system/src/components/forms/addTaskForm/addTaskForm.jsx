@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { TextInput, Textarea } from '../inputs';
+import { TextInput, Textarea } from '../../inputs';
 import PropTypes from 'prop-types';
-import { addEditTask } from '../../store/task';
+import { addEditTask } from '../../../store/task';
 import { connect } from 'react-redux';
 
 import './addTaskForm.scss';

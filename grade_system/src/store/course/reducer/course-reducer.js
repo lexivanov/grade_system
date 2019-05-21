@@ -41,6 +41,18 @@ export const courseReducer = function (state = {
             }
             return { ...state, currentCourseInfo: courseInfo };
         }
+        case actionTypes.addOrEdit: {
+            const tmpList = [...state.courses];
+            const index = tmpList.findIndex(x => x.id === payload.id);
+            index !== -1 ? tmpList[index] = payload : tmpList.push(payload);
+            return { ...state, courses: tmpList};
+        }
+        case actionTypes.deleteCourse: {
+            const tmpList = [...state.courses];
+            tmpList.splice(tmpList.findIndex(x => x.id === payload),1);
+            
+            return { ...state, courses: tmpList };
+        }
         default: {
             return { ...state };
         }

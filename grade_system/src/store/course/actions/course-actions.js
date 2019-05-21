@@ -39,6 +39,18 @@ export const addOrEditUser = (newUser) => dispatch => {
     }).catch(() => {});
 };
 
+export const addEditCourse = (newCourse) => dispatch => {
+    CourseController.addEdit(newCourse).then((resolve) => {
+        dispatch(addOrEditAction(resolve));
+    }).catch(() => {});
+};
+
+export const deleteCourse = (id) => dispatch => {
+    CourseController.delete(id).then((resolve) => {
+        dispatch(deleteAction(id));
+    }).catch(() => {});
+};
+
 const loadCourse = (payload) => ({
     type: actionTypes.loadCourses,
     payload
@@ -61,5 +73,15 @@ const setGradeAction = (payload) => ({
 
 const addOrEditUserAction = (payload) => ({
     type: actionTypes.addOrEditUser,
+    payload
+});
+
+const addOrEditAction = (payload) => ({
+    type: actionTypes.addOrEdit,
+    payload
+});
+
+const deleteAction = (payload) => ({
+    type: actionTypes.deleteCourse,
     payload
 });
