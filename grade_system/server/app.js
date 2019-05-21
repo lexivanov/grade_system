@@ -63,6 +63,10 @@ router
   .post(authController.logout)
 
 router
+  .route("/verify/:hash")
+  .post(authController.verifyUser)
+
+router
   .route("/user")
   .get(userController.getAll)
   .post(userController.addOrEdit);

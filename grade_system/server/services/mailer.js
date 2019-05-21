@@ -29,22 +29,23 @@ var mailOptions = {
   html: undefined
 };
 
-const getTemplate = (tempEMail, password, fullname) => {
-  return template.replace('{name}', fullname).replace('{email}', tempEMail).replace('{password}', password);
+const getTemplate = (tempEMail, password, fullname, userHash) => {
+  return template.replace('{name}', fullname).replace('{email}', tempEMail).replace('{password}', password).replace('{hash}', userHash);
 }
 
-exports.sendMail = function (tempEMail, password, fullname) {
+exports.sendMail = (tempEMail, password, fullname) => {
   mailOptions.to = tempEMail;
   const userHash = hasher.createUserHash(fullname);
-  hasher.saveUserHash({ userHash,tempEMail });
+  const success = hasher.saveUserHash( userHash, tempEMail );
+  if (!success) return 'Hash creation error!'
 
   mailOptions.html = getTemplate(tempEMail, password, fullname, userHash);
 
-  transporter.sendMail(mailOptions, function (error, info) {
+  transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.log(error);
+      return error.message;
     } else {
-      console.log('Email sent: ' + info.response);
+      return 'Email sent: ' + info.response;
     }
   });
 };

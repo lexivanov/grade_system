@@ -4,22 +4,21 @@ const UserHashes = require("../models/userHashes");
 
 const secret = 'abcdefg';
 
-exports.createUserHash = function (fullname){
+exports.createUserHash = (fullname) => {
     const hash = crypto.createHmac('sha256', secret)
-                   .update(fullname)
-                   .digest('hex');
-    
-    console.log(hash);
+        .update(fullname)
+        .digest('hex');
+
     return hash;
 };
 
-exports.saveUserHash = async (req, res) => {
-    const user = await User.findOne({ eMail: req.eMail });
+exports.saveUserHash = async (hash, email) => {
+    const user = await User.findOne({ email });
+
     if (!user) {
-        res.status(402).send("Hasn't with this eMail!");
+        return false;
     } else {
-        console.log(user._id);
-        UserHashes.create({ hash: req.userHash, userId: user._id });
-        res.status(200).send("Success!");
+        UserHashes.create({ hash: hash.toString(), userId: user._id });
+        return true;
     }
 };
