@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { loadTasks, deleteTask } from '../../../store/task';
-import { AddTaskForm, TextInput } from '../../../components';
+import { AddTaskForm, TextInput, ApprovementForm } from '../../../components';
 import { showModal } from '../../../store/modal';
 import { avoidUnauthorized, inPermissionBase } from '../../../services';
 
@@ -18,6 +18,15 @@ class TaskListPage extends Component {
 
     onAddNewTask = async () => {
         this.props.showModal(<AddTaskForm />);
+    }
+    
+    onDelete = (task) => {
+        this.props.showModal(
+            <ApprovementForm
+                text={`Are you sure you want to delete ${task.name}?`}
+                onApprove={() => this.props.deleteCourse(task.id)}
+            />
+        );
     }
 
     render() {
@@ -44,7 +53,7 @@ class TaskListPage extends Component {
                                     <Link to={`/task/${task.id}`} className='task-link'>{task.name}</Link>
                                 </div>
                                 {inPermission('admin') && <div className='delete-button'>
-                                    <button className='delete-button' onClick={() => this.props.deleteTask(task.id)}>X</button>
+                                    <button className='delete-button' onClick={() => this.onDelete(task)}>X</button>
                                 </div>}
                             </div>
                         ))

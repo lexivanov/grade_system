@@ -54,7 +54,7 @@ class TaskPage extends Component {
             await this.props.editTask({ ...this.state.task });
             this.setState({ editMode: false, task: this.props.task });
         } catch {
-            console.log('Vse poshlo po pizde, traini eshe');
+            console.log('Task was not edited');
         }
     }
 

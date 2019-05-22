@@ -42,7 +42,7 @@ class UserPage extends Component {
             await this.props.editUser({ ...this.state.user });
             this.setState({ editMode: false });
         } catch {
-            console.log('Vse poshlo po pizde, traini eshe');
+            console.log('User was not edited');
         }
     }
 

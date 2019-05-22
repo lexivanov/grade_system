@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter, Redirect } from 'react-router-dom';
 import { fetchCourseList, deleteCourse } from '../../../store/course';
-import { AddCourseForm, TextInput } from '../../../components';
+import { AddCourseForm, TextInput, ApprovementForm } from '../../../components';
 import { showModal } from '../../../store/modal';
 import { avoidUnauthorized, inPermissionBase } from '../../../services';
 
@@ -18,6 +18,15 @@ class MainPage extends Component {
 
     onAddNewTask = async () => {
         this.props.showModal(<AddCourseForm />);
+    }
+
+    onDelete = (course) => {
+        this.props.showModal(
+            <ApprovementForm
+                text={`Are you sure you want to delete ${course.name}?`}
+                onApprove={() => this.props.deleteCourse(course.id)}
+            />
+        );
     }
 
     render() {
@@ -46,7 +55,7 @@ class MainPage extends Component {
                                 {inPermission('admin')
                                     && <button
                                         className='delete-button'
-                                        onClick={() => this.props.deleteCourse(course.id)}>X</button>}
+                                        onClick={() => this.onDelete(course)}>X</button>}
                             </div>
                         ))
                         : <div>No courses found...</div>}

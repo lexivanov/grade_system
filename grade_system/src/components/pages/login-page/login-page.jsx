@@ -233,6 +233,6 @@ export default withRouter(connect(
         ownProps
     }),
     dispatch => ({
-        login: (user) => dispatch(login(user))
+        login: async (user) => await dispatch(login(user))
     })
 )(LoginPage));

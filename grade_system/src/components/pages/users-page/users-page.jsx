@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { fetchUsersList, deleteUser, addEditUser } from '../../../store/user';
+import { showModal } from '../../../store/modal';
+
 import { fetchCourseList } from '../../../store/course';
 import { avoidUnauthorized, inPermissionBase } from '../../../services';
+import { DropDownInput, TextInput, ApprovementForm } from '../../../components';
 
 import './users-page.scss';
-import { DropDownInput, TextInput } from '../../inputs';
 
 const roles = [{
     name: "Admin",
@@ -36,6 +38,15 @@ class UsersPage extends Component {
     getCourseName = (user) => {
         const course = this.props.courses.find(x => x.id === user.courseId);
         return course ? <div className='course-container'>Course: {course.name}</div> : null;
+    }
+
+    onDelete = (user) => {
+        this.props.showModal(
+            <ApprovementForm
+                text={`Are you sure you want to delete ${user.fullname}?`}
+                onApprove={() => this.props.deleteUser(user.id)}
+            />
+        );
     }
 
     render() {
@@ -68,7 +79,7 @@ class UsersPage extends Component {
                                 />
                             </div>
                             {inPermission('admin') && <div className='delete-button-container'>
-                                <button className='delete-button' onClick={() => this.props.deleteUser(user.id)}>X</button>
+                                <button className='delete-button' onClick={() => this.onDelete(user)}>X</button>
                             </div>}
                         </div>
                     ))
@@ -90,5 +101,6 @@ export default withRouter(connect(
         getCourses: () => dispatch(fetchCourseList()),
         editUser: (user) => dispatch(addEditUser(user)),
         deleteUser: (id) => dispatch(deleteUser(id)),
+        showModal: (content) => dispatch(showModal(content)),
     })
 )(UsersPage));

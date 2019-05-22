@@ -8,7 +8,6 @@ export const hideModal = () => dispatch => {
     dispatch(hideModalAction());
 };
 
-
 const showModalAction = (payload) => ({
     type: actionTypes.showContent,
     payload
