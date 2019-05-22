@@ -32,19 +32,25 @@ exports.login = async (req, res) => {
 
     const getSuccess = (user) => {
         req.session.user = user._id;
-        res.status(200).send(user);
+        res.status(200).json(user);
     }
 
     try {
         const user = await User.findOne({ email });
-        user
-            ? user.checkPassword(password, user.salt)
-                ? getSuccess(user)
-                : res.status(403).send("Incorrect password")
-            : res.status(403).send("User not found");
-
-    } catch (err) {
-        res.status(500).json(err);
+        if (user) {
+            if (user.userState === 'active') {
+                user.checkPassword(password, user.salt)
+                    ? getSuccess(user)
+                    : res.status(403).send("Incorrect password");
+            } else {
+                res.status(403).send("User didn't activated");
+            }
+        } else {
+            res.status(403).send("User not found");
+        }
+    }
+    catch (err) {
+        res.status(500).send(err);
     }
 };
 
@@ -57,14 +63,14 @@ exports.logout = async (req, res) => {
 exports.verifyUser = async (req, res) => {
     const userHash = await UserHashes.findOne({ hash: req.params.hash });
     if (userHash) {
-        const updatedUser = await User.updateOne({ _id: userHash.userId }, { userState: "active" })
+        const updatedUser = await User.updateOne({ _id: userHash.userId }, { userState: "active" });
         if (updatedUser.nModified === 1) {
-            UserHashes.deleteOne(userHash)
-            res.status(200).send('User activated!')
+            await UserHashes.deleteOne({ hash: req.params.hash });
+            res.status(200).send('User activated!');
         } else {
-            res.status(400).send("User didn't antivated!")
+            res.status(400).send("User didn't antivated!");
         }
     } else {
-        res.status(400).send('Hash is not found!');
+        res.status(400).send('Hash is not found or user already activated!');
     }
 };

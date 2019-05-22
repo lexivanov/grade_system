@@ -6,7 +6,7 @@ const schema = new Schema({
   email:          { type: String                                      },
   passwordHash:   { type: String                                      },
   salt:           { type: String                                      },
-  userState:      { type: String,                 default: "active"   },
+  userState:      { type: String,                 default: "unactive"   },
   fullname:       { type: String,                 required: true      },
   role:           { type: String,                 default: "student"  },
   courseId:       { type: Schema.Types.ObjectId,  ref: "Course"       },

@@ -8,13 +8,13 @@ export const authReducer = function (state = {
 
     switch (action.type) {
         case actionTypes.login: {
-            return { ...state, user: payload };
+            return { ...state, user: payload, error: undefined };
         }
         case actionTypes.setError: {
             return { ...state, error: payload };
         }
         case actionTypes.logout: {
-            return { ...state, user: undefined };
+            return { ...state, user: undefined, error: undefined };
         }
         default: {
             return { ...state };

@@ -6,6 +6,7 @@ import './login-page.scss';
 import { TextInput } from '../../inputs';
 import { AuthController } from '../../../services/api-controllers/auth-controller';
 import { login } from '../../../store/auth/actions';
+import { Cookie } from '../../../services/cookie-service';
 
 class LoginPage extends Component {
 
@@ -145,78 +146,79 @@ class LoginPage extends Component {
         e.preventDefault();
         e.stopPropagation();
         const body = { email: this.state.email, password: this.state.password };
-        try {
-            const res = await this.props.login(body);
-            this.setState({ redirect: '/main' }, () => console.log(res));
-        } catch (e) {
-            this.setState({ response: e });
-        }
+        await this.props.login(body);
     }
 
     render() {
-        if (this.state.redirect) return <Redirect to={this.state.redirect} />;
+        const user = Cookie.getCookie('userId');
+        if (user && !this.props.error) return <Redirect to={'/main'} />;
         return (
             <Fragment>
                 <div className='login-wrapper'>
                     {!this.state.registred
-                        ? <form className="login-form" onSubmit={this.props.isRegister ? this.onSubmitRegister : this.onSubmitLogin}>
-                            <div className="inputs">
-                                {this.props.isRegister && <div className={`block-wrapper ${this.state.errors.name ? "danger" : ""}`}>
-                                    <label className="login-label name">
-                                        <span>Name: </span>
-                                        <TextInput
-                                            className="login-input name"
-                                            value={this.state.name}
-                                            onChange={this.onChange("name", this.maxLength)}
-                                            onBlur={this.onBlur("name", this.blurName)}
-                                        />
-                                    </label>
-                                    {this.state.errors.name && <div className="validation-message">{this.state.errors.name}</div>}
-                                </div>}
-                                <div className={`block-wrapper ${this.state.errors.email ? "danger" : ""}`}>
-                                    <label className="login-label email">
-                                        <span>Email: </span>
-                                        <TextInput
-                                            className="login-input email"
-                                            value={this.state.email}
-                                            onChange={this.onChange("email", this.maxLength)}
-                                            onBlur={this.onBlur("email", this.blurEmail)}
-                                        />
-                                    </label>
-                                    {this.state.errors.email && <div className="validation-message">{this.state.errors.email}</div>}
+                        ? <>
+                            <form className="login-form" onSubmit={this.props.isRegister ? this.onSubmitRegister : this.onSubmitLogin}>
+                                <div className="inputs">
+                                    {this.props.isRegister && <div className={`block-wrapper ${this.state.errors.name ? "danger" : ""}`}>
+                                        <label className="login-label name">
+                                            <span>Name: </span>
+                                            <TextInput
+                                                className="login-input name"
+                                                value={this.state.name}
+                                                onChange={this.onChange("name", this.maxLength)}
+                                                onBlur={this.onBlur("name", this.blurName)}
+                                            />
+                                        </label>
+                                        {this.state.errors.name && <div className="validation-message">{this.state.errors.name}</div>}
+                                    </div>}
+                                    <div className={`block-wrapper ${this.state.errors.email ? "danger" : ""}`}>
+                                        <label className="login-label email">
+                                            <span>Email: </span>
+                                            <TextInput
+                                                className="login-input email"
+                                                value={this.state.email}
+                                                onChange={this.onChange("email", this.maxLength)}
+                                                onBlur={this.onBlur("email", this.blurEmail)}
+                                            />
+                                        </label>
+                                        {this.state.errors.email && <div className="validation-message">{this.state.errors.email}</div>}
+                                    </div>
+                                    <div className={`block-wrapper ${this.state.errors.password ? "danger" : ""}`}>
+                                        <label className="login-label password">
+                                            <span>Password: </span>
+                                            <TextInput
+                                                type="password"
+                                                className="login-input password"
+                                                value={this.state.password}
+                                                onChange={this.onChange("password", this.maxLength)}
+                                                onBlur={this.onBlur("password", this.blurPassword)}
+                                            />
+                                        </label>
+                                        {this.state.errors.password && <div className="validation-message">{this.state.errors.password}</div>}
+                                    </div>
+                                    {this.props.isRegister && <div className={`block-wrapper ${this.state.errors.passwordRepeat ? "danger" : ""}`}>
+                                        <label className="login-label password repeat">
+                                            <span>Repeat password: </span>
+                                            <TextInput
+                                                type="password"
+                                                className="login-input password passwordRepeat"
+                                                value={this.state.passwordRepeat}
+                                                onChange={this.onChange("passwordRepeat", this.maxLength)}
+                                                onBlur={this.onBlur("passwordRepeat", this.blurRepeatPassword)}
+                                            />
+                                        </label>
+                                        {this.state.errors.passwordRepeat && <div className="validation-message">{this.state.errors.passwordRepeat}</div>}
+                                    </div>
+                                    }
                                 </div>
-                                <div className={`block-wrapper ${this.state.errors.password ? "danger" : ""}`}>
-                                    <label className="login-label password">
-                                        <span>Password: </span>
-                                        <TextInput
-                                            type="password"
-                                            className="login-input password"
-                                            value={this.state.password}
-                                            onChange={this.onChange("password", this.maxLength)}
-                                            onBlur={this.onBlur("password", this.blurPassword)}
-                                        />
-                                    </label>
-                                    {this.state.errors.password && <div className="validation-message">{this.state.errors.password}</div>}
+                                <div className="controls">
+                                    <button type="submit" className="submit-button" disabled={this.hasErrors()}>{this.props.isRegister ? "Register" : "LogIn"}</button>
                                 </div>
-                                {this.props.isRegister && <div className={`block-wrapper ${this.state.errors.passwordRepeat ? "danger" : ""}`}>
-                                    <label className="login-label password repeat">
-                                        <span>Repeat password: </span>
-                                        <TextInput
-                                            type="password"
-                                            className="login-input password passwordRepeat"
-                                            value={this.state.passwordRepeat}
-                                            onChange={this.onChange("passwordRepeat", this.maxLength)}
-                                            onBlur={this.onBlur("passwordRepeat", this.blurRepeatPassword)}
-                                        />
-                                    </label>
-                                    {this.state.errors.passwordRepeat && <div className="validation-message">{this.state.errors.passwordRepeat}</div>}
-                                </div>
-                                }
-                            </div>
-                            <div className="controls">
-                                <button type="submit" className="submit-button" disabled={this.hasErrors()}>{this.props.isRegister ? "Register" : "LogIn"}</button>
-                            </div>
-                        </form>
+                            </form>
+                            {this.props.error && <p className="info-msg">
+                                {this.props.error}
+                            </p>}
+                        </>
                         : <p className="info-msg">
                             {this.state.registred} <Link to='/login' className="link" onClick={() => this.setState({ registred: undefined })}>log in</Link>.
                         </p>}
@@ -230,6 +232,7 @@ export default withRouter(connect(
     (state, ownProps) => ({
         courses: state.courseReducer.courses,
         user: state.authReducer.user,
+        error: state.authReducer.error,
         ownProps
     }),
     dispatch => ({

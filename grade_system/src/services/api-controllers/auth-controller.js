@@ -102,7 +102,7 @@ export class AuthController {
                     }
                     else {
                         const user = xhr.responseText;
-                        resolve(JSON.parse(user));
+                        resolve(user);
                     }
                 }
             };
