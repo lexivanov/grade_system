@@ -89,4 +89,26 @@ export class AuthController {
 
         return promise;
     }
+
+    static verify(hash) {
+        const promise = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", `http://localhost:3000/api/verify/${hash}`, true);
+            
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status !== 200) {
+                        reject(xhr.responseText);
+                    }
+                    else {
+                        const user = xhr.responseText;
+                        resolve(JSON.parse(user));
+                    }
+                }
+            };
+            xhr.send();
+        });
+
+        return promise;
+    }
 }

@@ -6,3 +6,4 @@ export * from './task-page';
 export * from './task-list-page';
 export * from './login-page';
 export * from './lobby-page';
+export * from './verify-page';
