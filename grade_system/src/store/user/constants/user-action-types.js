@@ -4,4 +4,5 @@ export const actionTypes = {
     addEditUser: 'ADD_EDIT_USER',
     loadUserGrades: 'LOAD_USER_GRADES',
     deleteUser: 'DELETE_USER',
+    sort: 'SORT_USERS',
 };

@@ -7,4 +7,5 @@ export const actionTypes = {
     addOrEditUser: 'ADD_NEW_USER_TO_COURSE',
     addOrEdit: 'ADD_NEW_COURSE',
     deleteCourse: 'DELETE_COURSE',
+    filter: 'FILTER_COURSE,'
 };

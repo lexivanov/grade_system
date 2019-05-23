@@ -6,7 +6,7 @@ export const login = (user) => dispatch => {
     AuthController.login(user)
         .then((resolve) => {
             dispatch(loginAction(resolve));
-            Cookie.setCookie('userId', resolve.id, { expires: 3600 });
+            Cookie.setCookie('userId', resolve.id, { expires: 3600*24 });
         })
         .catch((err) => {
             dispatch(setAuthError(err));

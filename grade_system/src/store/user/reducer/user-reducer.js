@@ -31,11 +31,19 @@ export const userReducer = function (state = {
             return { ...state, user: payload[0] };
         }
         case actionTypes.addEditUser: {
-            const userList = [ ...state.userList ];
+            const userList = [...state.userList];
             const index = userList.findIndex(x => x.id === payload.id);
             index !== -1 ? userList[index] = payload : userList.push(payload);
-            
+
             return { ...state, user: payload, userList };
+        }
+        case actionTypes.sort: {
+            const userList = [...state.userList];
+            const { column, order } = payload;
+
+            const newarr = userList.sort((a, b) => order ? a[column].localeCompare(b[column]) : b[column].localeCompare(a[column]));
+
+            return { ...state, userList: newarr };
         }
         default: {
             return { ...state };

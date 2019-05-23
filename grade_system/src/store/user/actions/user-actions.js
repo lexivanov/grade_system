@@ -31,6 +31,10 @@ export const addEditUser = (user) => dispatch => {
     }).catch(() => {});
 };
 
+export const sort = (opts) => dispatch => {
+    dispatch(sortAction(opts));
+};
+
 const loadUsers = (payload) => ({
     type: actionTypes.loadUsers,
     payload
@@ -53,5 +57,10 @@ const loadUserGrades = (payload) => ({
 
 const deleteUserAction = (payload) => ({
     type: actionTypes.deleteUser,
+    payload
+});
+
+const sortAction = (payload) => ({
+    type: actionTypes.sort,
     payload
 });

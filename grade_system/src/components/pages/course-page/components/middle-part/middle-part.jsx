@@ -6,6 +6,15 @@ import { gradeColors } from '../../../../../constants';
 import './middle-part.scss';
 import { NumberCell } from '../number-cell/number-cell';
 
+class SortButton extends Component {
+    state = { lastDirection: false }
+    render = () => {
+        return (<div className={"sort-button"} onClick={() => { this.setState(prev => ({ lastDirection: !prev.lastDirection }), this.props.sort(this.state.lastDirection)) }}>
+            {this.state.lastDirection ? <i class="fa fa-caret-down" /> : <i class="fa fa-caret-up" />}
+        </div>);
+    }
+}
+
 export class MiddlePart extends Component {
     static propTypes = {
         tasks: PropTypes.array,
@@ -22,6 +31,7 @@ export class MiddlePart extends Component {
                     return (<div className='task-column' key={task.id}>
                         <div className='task-cell middle-cell'>
                             <Link className='task-link' to={`/task/${task.id}`}>{task.name}</Link>
+                            <SortButton sort={(direction) => this.props.sort(task.id, direction)} />
                         </div>
                         {this.props.users.map(user => {
                             let color = undefined;

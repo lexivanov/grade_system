@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { gradeColors } from '../../../../../constants';
+import { sort } from '../../../../../store/course';
 
 import './left-side.scss';
 
@@ -31,7 +32,7 @@ class LeftSide extends Component {
                     }
                     return (
                         <div className='user-row' key={user.id}>
-                            <div className='username-cell left-cell'>
+                            <div className='username-cell left-cell' onClick={() => this.props.sort('fullname', true)}>
                                 <span className='username'>{user.fullname}</span>
                             </div>
                             <div className='average-cell left-cell' style={{ backgroundColor: color }}>
@@ -51,6 +52,9 @@ export default connect(
         users: state.courseReducer.currentCourseInfo.users && state.courseReducer.currentCourseInfo.users.filter(user => user.courseId === idResolver(window.location.pathname)),
         grades: state.courseReducer.currentCourseInfo.grades,
         ownProps
+    }),
+    dispatch => ({
+        sort: (column, order) => dispatch(sort({ column, order }))
     })
 )(LeftSide);
 

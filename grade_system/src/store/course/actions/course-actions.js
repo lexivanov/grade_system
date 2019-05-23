@@ -4,19 +4,19 @@ import { CourseController, UserController } from '../../../services';
 export const fetchCourseList = () => dispatch => {
     CourseController.getAll().then((resolve) => {
         dispatch(loadCourse(resolve));
-    }).catch(() => {});
+    }).catch(() => { });
 };
 
 export const fetchCourseTasks = (id) => dispatch => {
     CourseController.getTasks(id).then((resolve) => {
         dispatch(loadCourseTasks(resolve));
-    }).catch(() => {});
+    }).catch(() => { });
 };
 
 export const fetchCourseInfo = (id) => dispatch => {
     CourseController.getCourseInfo(id).then((resolve) => {
         dispatch(loadCourseInfo(resolve));
-    }).catch(() => {});
+    }).catch(() => { });
 };
 
 export const setGrade = (userId, taskId, value) => dispatch => {
@@ -30,25 +30,29 @@ export const setGrade = (userId, taskId, value) => dispatch => {
             taskId,
             value
         }));
-    }).catch(() => {});
+    }).catch(() => { });
 };
 
 export const addOrEditUser = (newUser) => dispatch => {
     UserController.addEditUser(newUser).then((resolve) => {
         dispatch(addOrEditUserAction(resolve));
-    }).catch(() => {});
+    }).catch(() => { });
 };
 
 export const addEditCourse = (newCourse) => dispatch => {
     CourseController.addEdit(newCourse).then((resolve) => {
         dispatch(addOrEditAction(resolve));
-    }).catch(() => {});
+    }).catch(() => { });
 };
 
 export const deleteCourse = (id) => dispatch => {
     CourseController.delete(id).then((resolve) => {
         dispatch(deleteAction(id));
-    }).catch(() => {});
+    }).catch(() => { });
+};
+
+export const sort = (opts) => dispatch => {
+    dispatch(sortAction(opts));
 };
 
 const loadCourse = (payload) => ({
@@ -83,5 +87,10 @@ const addOrEditAction = (payload) => ({
 
 const deleteAction = (payload) => ({
     type: actionTypes.deleteCourse,
+    payload
+});
+
+const sortAction = (payload) => ({
+    type: actionTypes.filter,
     payload
 });

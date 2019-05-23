@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { LeftSide, MiddlePart, RightSide } from './components';
-import { fetchCourseInfo, setGrade, addOrEditUser } from '../../../store/course';
+import { fetchCourseInfo, setGrade, addOrEditUser, sort } from '../../../store/course';
 import { AddTaskForm } from '../../forms';
 import './course-page.scss';
 import { showModal } from '../../../store/modal';
@@ -16,7 +16,7 @@ class CoursePage extends Component {
         this.id = idResolver(window.location.pathname);
         this.state = { userName: '', selectedItem: null };
     }
-    
+
     async componentDidMount() {
         await this.props.getInfo(idResolver(window.location.pathname));
     }
@@ -54,7 +54,7 @@ class CoursePage extends Component {
     }
 
     onAddNewTask = async () => {
-        this.props.showModal(<AddTaskForm/>);
+        this.props.showModal(<AddTaskForm />);
     }
 
     render() {
@@ -72,7 +72,8 @@ class CoursePage extends Component {
                         onChangeGrade={this.onChangeGrade}
                         tasks={this.props.tasks}
                         grades={this.props.grades}
-                        users={this.props.users.filter(user => user.courseId === this.id)} />
+                        users={this.props.users.filter(user => user.courseId === this.id)}
+                        sort={this.props.sort} />
                     <RightSide
                         canEdit={inPermission}
                         users={this.props.users.filter(user => user.courseId === this.id)}
@@ -106,6 +107,7 @@ export default withRouter(connect(
         getInfo: (id) => dispatch(fetchCourseInfo(id)),
         setGrade: (userId, taskId, value) => dispatch(setGrade(userId, taskId, value)),
         addOrEditUser: (newUser) => dispatch(addOrEditUser(newUser)),
-        showModal: (content) => dispatch(showModal(content))
+        showModal: (content) => dispatch(showModal(content)),
+        sort: (column, order) => dispatch(sort({ column, order }))
     })
 )(CoursePage));

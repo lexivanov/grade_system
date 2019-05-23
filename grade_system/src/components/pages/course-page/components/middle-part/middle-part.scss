@@ -25,30 +25,35 @@
             font-size: 14px;
             text-decoration: none;
             color: #4b1b00;
-            &.edit{
+
+            &.edit {
                 padding: 0;
+
                 input {
                     text-align: center;
                     padding: 5px;
                     height: 29px;
                     border: 0;
                     outline: 0;
-                    width: 100%; 
+                    width: 100%;
                 }
             }
-            
+
         }
 
         .task-cell {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
             padding-top: 8px;
+            display: flex;
+            flex-flow: row nowrap;
 
             .task-link {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 text-decoration: none;
                 color: #059bff;
                 font-family: 'Oswald';
+                margin-right: 3px;
 
                 &:hover {
                     color: #ff0000;
@@ -63,15 +68,17 @@
         }
     }
 
-    .fake-column{
+    .fake-column {
         display: flex;
         flex-flow: column nowrap;
         width: 100%;
-        .fake-cell{
+
+        .fake-cell {
             height: 30px;
             width: 100%;
             border-bottom: 1px solid #828486;
-            &:first-child{
+
+            &:first-child {
                 border-top: 1px solid #828486;
             }
         }
