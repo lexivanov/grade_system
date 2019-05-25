@@ -5,6 +5,7 @@ import { gradeColors } from '../../../../../constants';
 import { sort } from '../../../../../store/course';
 
 import './left-side.scss';
+import { SortButton } from '../sort-button';
 
 class LeftSide extends Component {
     static propTypes = {
@@ -17,26 +18,18 @@ class LeftSide extends Component {
         return (
             <div className='left-side'>
                 <div className='fake-row'>
+                    <div className="name-header">Student's name <SortButton sort={(direction) => this.props.sort('fullname', direction)} /></div>
+                    <div className="average-header">Average <SortButton sort={(direction) => this.props.sort('average', direction)} /></div>
                 </div>
                 {this.props.users.map(user => {
-                    const grades = this.props.grades.filter(x => x.userId === user.id);
-                    let average = undefined;
-                    let color = undefined;
-                    if (grades.length > 0) {
-                        average = 0;
-                        grades.forEach(item => {
-                            average += item.value;
-                        });
-                        average /= grades.filter(x => !!x.value).length;
-                        color = gradeColors[('' + Math.floor(average))];
-                    }
+                    const color = gradeColors[('' + Math.floor(user.average))];
                     return (
                         <div className='user-row' key={user.id}>
-                            <div className='username-cell left-cell' onClick={() => this.props.sort('fullname', true)}>
+                            <div className='username-cell left-cell'>
                                 <span className='username'>{user.fullname}</span>
                             </div>
                             <div className='average-cell left-cell' style={{ backgroundColor: color }}>
-                                <span className='username'>{Math.round(average * 100) / 100 || ''}</span>
+                                <span className='username'>{Math.round(user.average * 100) / 100 || ''}</span>
                             </div>
                         </div>
                     )

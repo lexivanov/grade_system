@@ -1,9 +1,38 @@
 .left-side {
-    width: 250px;
+    width: 300px;
 
     .fake-row {
         height: 30px;
         border: 1px solid #828486;
+        border-right: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        .name-header,
+        .average-header {
+            display: flex;
+            flex-flow: row nowrap;
+            padding: 5px;
+            
+            .sort-button {
+                margin-left: 3px;
+            }
+        }
+
+        .name-header {
+            flex-grow: 1;
+            height: 30px;
+        }
+
+        .average-header {
+            text-align: center;
+            width: 100px;
+            height: 30px;
+            flex-grow: 0;
+            border-left: 1px solid #828486;
+            border-right: 1px solid #828486;
+        }
     }
 
     .user-row {
@@ -19,10 +48,12 @@
         border-right: 0;
         padding: 5px;
         font-family: 'Times New Roman', Times, serif;
+
         &.average-cell {
-            min-width: 50px;
+            width: 100px;
             flex-grow: 0;
             border-right: 1px solid #828486;
+            text-align: center;
         }
 
         &.username-cell {

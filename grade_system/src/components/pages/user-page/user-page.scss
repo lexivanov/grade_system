@@ -78,11 +78,11 @@
 
     .user-input {
         width: 100%;
-        margin-top: 10px;
 
         &.comment {
             resize: none;
             height: 198px;
+            flex-grow: 1;
 
             &:disabled {
                 background: #fbfdff;
@@ -99,8 +99,12 @@
         font-size: 16px;
         font-weight: 100;
         line-height: 16px;
-        margin-top: 5px;
+        margin-top: 10px;
         width: 100%;
+
+        &:first-child {
+            margin-top: 0px;
+        }
 
         &.name {
             font-size: 22px;
@@ -125,6 +129,17 @@
                 }
 
             }
+        }
+
+        &.comment, &.grades{
+            display: flex;
+            flex-flow: row nowrap;
+        }
+
+        .user-label {
+            flex-grow: 0;
+            padding-top: 2px; 
+            width: 150px;
         }
     }
 

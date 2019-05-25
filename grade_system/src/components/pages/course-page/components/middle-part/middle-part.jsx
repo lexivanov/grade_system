@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { Link } from 'react-router-dom';
+import { SortButton, NumberCell } from '../../components';
 import { gradeColors } from '../../../../../constants';
 
 import './middle-part.scss';
-import { NumberCell } from '../number-cell/number-cell';
-
-class SortButton extends Component {
-    state = { lastDirection: false }
-    render = () => {
-        return (<div className={"sort-button"} onClick={() => { this.setState(prev => ({ lastDirection: !prev.lastDirection }), this.props.sort(this.state.lastDirection)) }}>
-            {this.state.lastDirection ? <i class="fa fa-caret-down" /> : <i class="fa fa-caret-up" />}
-        </div>);
-    }
-}
 
 export class MiddlePart extends Component {
     static propTypes = {

@@ -1,4 +1,4 @@
-.middle-side {
+.grades-panel {
     display: flex;
     flex-flow: row nowrap;
     overflow-x: auto;
@@ -9,6 +9,11 @@
         display: flex;
         flex-flow: column nowrap;
         max-width: 100px;
+        min-width: 60px;
+
+        &:first-child {
+            border-left: solid #828486 1px;
+        }
 
         .middle-cell {
             font-family: 'Times New Roman', Times, serif;
@@ -21,15 +26,13 @@
             color: #4b1b00;
 
             &.edit {
-                padding: 0;
-
                 input {
                     text-align: center;
                     padding: 5px;
-                    height: 29px;
+                    height: 17px;
                     border: 0;
                     outline: 0;
-                    width: 100%;
+                    width: 45px;
                 }
             }
 
@@ -70,11 +73,6 @@
         .fake-cell {
             height: 30px;
             width: 100%;
-            border-bottom: 1px solid #828486;
-
-            &:first-child {
-                border-top: 1px solid #828486;
-            }
         }
     }
 }

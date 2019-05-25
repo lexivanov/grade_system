@@ -15,7 +15,24 @@ export const courseReducer = function (state = {
             return { ...state, courses: payload };
         }
         case actionTypes.loadCourseInfo: {
-            return { ...state, currentCourseInfo: payload };
+            const info = payload;
+            const sorted = info.users.sort((a, b) => a.fullname.localeCompare(b.fullname));
+            info.users = sorted;
+            info.users.forEach(user => {
+                const grades = info.grades.filter(x => x.userId === user.id);
+                let average = undefined;
+                if (grades.length > 0) {
+                    average = 0;
+                    grades.forEach(item => {
+                        average += item.value;
+                    });
+                    average /= grades.filter(x => !!x.value).length;
+
+                }
+                user.average = average;
+            });
+
+            return { ...state, currentCourseInfo: info };
         }
         case actionTypes.setGrade: {
             const courseInfo = { ...state.currentCourseInfo };
@@ -29,6 +46,20 @@ export const courseReducer = function (state = {
                     courseInfo.grades[index].value = payload.value || null;
                 }
             }
+
+            const grades = courseInfo.grades.filter(x => x.userId === payload.userId);
+            let average = undefined;
+            if (grades.length > 0) {
+                average = 0;
+                grades.forEach(item => {
+                    average += item.value;
+                });
+                average /= grades.filter(x => !!x.value).length;
+
+            }
+
+            courseInfo.users.find(x => x.id === payload.userId).average = average;
+
             return { ...state, currentCourseInfo: { ...courseInfo } };
         }
         case actionTypes.addOrEditUser: {
@@ -57,7 +88,10 @@ export const courseReducer = function (state = {
             const currentCourseInfo = { ...state.currentCourseInfo };
             const { column, order } = payload;
             if (column === 'fullname') {
-                const sorted = currentCourseInfo.users.sort((a, b) => order ? a[column].localeCompare(b[column]) : b[column].localeCompare(a[column]));
+                const sorted = currentCourseInfo.users.sort((a, b) => order ? b[column].localeCompare(a[column]) : a[column].localeCompare(b[column]));
+                currentCourseInfo.users = sorted;
+            } else if (column === 'average') {
+                const sorted = currentCourseInfo.users.sort((a, b) => order ? b[column] - a[column] : a[column] - b[column]);
                 currentCourseInfo.users = sorted;
             } else {
                 const sorted = currentCourseInfo.users.sort((a, b) => {
