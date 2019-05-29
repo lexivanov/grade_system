@@ -18,7 +18,7 @@ exports.registration = async (req, res) => {
     try {
         const user = await User.findOne({ email });
         user
-            ? res.status(403).send("This email already used")
+            ? res.status(403).send("This email is already used")
             : await createUser();
 
     } catch (err) {

@@ -215,8 +215,8 @@ class LoginPage extends Component {
                                     <button type="submit" className="submit-button" disabled={this.hasErrors()}>{this.props.isRegister ? "Register" : "LogIn"}</button>
                                 </div>
                             </form>
-                            {this.props.error && <p className="info-msg">
-                                {this.props.error}
+                            {this.state.response && <p className="info-msg">
+                                {this.state.response}
                             </p>}
                         </>
                         : <p className="info-msg">

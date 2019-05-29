@@ -2,7 +2,7 @@
 
 .login-wrapper {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     margin: 20px auto 0;
     padding: 20px;
     border: solid 1px #d0d3d6;
@@ -80,5 +80,9 @@
         &:hover {
             color: $link-hover-color;
         }
+    }
+
+    .info-msg {
+        color: $danger-color;
     }
 }

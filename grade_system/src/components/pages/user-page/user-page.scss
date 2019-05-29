@@ -131,14 +131,15 @@
             }
         }
 
-        &.comment, &.grades{
+        &.comment,
+        &.grades {
             display: flex;
             flex-flow: row nowrap;
         }
 
         .user-label {
             flex-grow: 0;
-            padding-top: 2px; 
+            padding-top: 2px;
             width: 150px;
         }
     }
@@ -149,5 +150,17 @@
 
     .user-name-text {
         display: inline-block;
+    }
+
+    .fa-question-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 35px;
+        &:before {
+            width: 30px;
+            height: 30px;
+        }
+
+        margin: 10px 0 0 10px;
     }
 }

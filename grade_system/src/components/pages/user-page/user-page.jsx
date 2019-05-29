@@ -98,6 +98,7 @@ class UserPage extends Component {
           {this.props.user.courseId && <div className='user-wrapper grades'>
             <label className='user-label'>Grades:</label>
             <GradesPanel />
+            <i class="fa fa-question-circle" />
           </div>}
           <div className='user-wrapper comment'>
             <label className='user-label'>Teacher's comment:</label>
